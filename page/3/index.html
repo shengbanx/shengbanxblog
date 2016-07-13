@@ -138,6 +138,385 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-starling学习笔记（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/18/starling学习笔记（二）/" class="article-date">
+  <time datetime="2013-03-18T08:14:12.000Z" itemprop="datePublished">Mar 18 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/18/starling学习笔记（二）/">Starling学习笔记（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在官网可以知道，Starling是<a href="http://gamua.com/sparrow/" target="_blank" rel="external">Sparrow</a> 框架在ActionScript3领域的一个姐妹框架。基于stage3D的API开发，而Stage3D有能力去控制 OpenGL、DirectX这些电脑显卡驱动或OpenGL ES2这些手机显卡驱动，最终由这些显卡驱动程序去驱动GPU工作。也就是传说中的GPU显卡加速。</p>
+<p>就有人会疑惑了，stage3D不是渲染3D内容的吗？为何用来做2D。这里用我们该如何使用Stage3D中的drawTriangles这个API来绘制类似MovieClip来解释。GPU的优势在于它绘制三角形极其高效，所以使用drawTriangles API将绘制出两个三角形，之后我们再从一个纹理（texture，你可以理解成“素材”的意思）上面采样（或取色）并使用一种称为UV映射*的机制来着色于这两个三角形上即可，最后我们将能够得到一个纹理化（textured，即着了色的）的方块，我们就用它来作为我们Sprite对象的外观。若是在每一帧都改变其纹理，我们就可以得到一个MovieClip对象了。</p>
+<p>&nbsp;</p>
+<blockquote>
+<p>*<a href="http://help.adobe.com/zh_CN/ActionScript/3.0_ProgrammingAS3/WS509D19BB-239B-4489-B965-844DDA611AE7.html" target="_blank" rel="external">UV 映射</a>是一种纹理化对象的方法。它依赖于两个值：U 水平 (x) 值和 V 垂直 (y) 值。这两个值不是基于像素值，而是基于百分比。0 U 和 0 V 表示图像的坐上角，1 U 和 1 V 表示右下角<br>&nbsp;</p>
+</blockquote>
+<p>那么，现在开始创建舞台元素玩玩了，如上一篇所讲，首先是创建启动类，然后在Game类中创建一个显示对象，建什么好呢？不妨查查API，starling.display，有Button、Image、MovieClip、Quad（四边形）以及其他一些容器。这里，我们创建一个button玩玩。</p>
+<blockquote>
+<p>Button:</p>
+<p>一个简单的按钮由一张图片和一个可选的文本组成。</p>
+<p>你可以分别为按钮构造函数传递up和down两种状态的纹理。 如果你没有指定一个down状态的纹理，按钮会采用默认的办法：被触碰的时候缩小一点。 此外，你可以在按钮上覆盖一个文本，要自定义这个文本，只需要提供和原来的基本相同的文本框即可。 你可以使用<code>textBounds</code>属性，将文本移动到一个指定的位置。</p>
+<p>判断按钮是否被触碰，请使用<code>triggered</code>事件类型， 用这个事件来代替普通的触碰事件。也就是说，用户只要在松开手指或者鼠标之前，移动手指/鼠标离开按钮区域，就可以取消对该按钮的点击操作。<br>&nbsp;</p>
+<p><pre class="brush:as3">package<br>{<br>    import starling.display.Button;<br>    import starling.display.Sprite;<br>    import starling.textures.Texture;</pre></p>
+</blockquote>
+<pre><code>/**
+ * ...
+ * @author SHENGbanX
+ */
+public class Game7 extends Sprite
+{
+    [Embed(source = &quot;../assets/chicken.png&quot;)]
+    private static const Chicken:Class;
+    public function Game7()
+    {
+                    //通过Texture类中的静态方法fromBitmap来创建Texture纹理对象
+        var buttonTexture:Texture = Texture.fromBitmap(new Chicken());
+        var button:Button = new Button(buttonTexture, &quot;Hello Starling&quot;);
+        button.x = 200;
+        button.y = 200;
+                    addChild(button);
+    }
+
+}
+</code></pre><p>}<br>自己用ps简单地画了一个小鸡作为按钮的图片纹理，加上文字。但这样文字刚好在图片上，所以要用<code>textBounds</code>属性，把文字移到一个地方。</p>
+<p>查api可知textBounds:Rectangle，Rectangle是flash.geom包（包中包含几何图形类（如点、矩形和转换矩阵）以支持 BitmapData 类和位图缓存功能。）里的一个类。</p>
+<p>而Rectangle 对象是按其位置（由它左上角的点 (x, y) 确定）以及宽度和高度定义的区域。</p>
+<p>加上button.textBounds = (0,50,100,100);</p>
+<p>但报错了，类型不对，Rectangle不是就4个数作属性吗？思来想去，还是去看看starling的源代码：</p>
+<p><pre class="brush:as3">        /<em>* The bounds of the textfield on the button. Allows moving the text to a custom position. </em>/<br>        public function get textBounds():Rectangle { return mTextBounds.clone(); }<br>        public function set textBounds(value:Rectangle):void<br>        {<br>            mTextBounds = value.clone();<br>            createTextField();<br>        }</pre><br>仔细研究了一下，发现还是应该是那样没错的，试了很多种方法，通过trace(button.textBounds)结果是(x=0, y=0, w=73, h=53),以这个做值或(x=0, y=0, width=73, height=53)也不行。</p>
+<p>最后这样才可以：</p>
+<p><pre class="brush:as3">button.textBounds = new Rectangle(0, 50, 73,53);</pre><br>&nbsp;</p>
+<p><strong>没有教程的时候，查API、源码等方法自己研究还是很不错的！学习Starling更需如此。</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/03/18/starling学习笔记（二）/" data-id="cikvsxo82004alv8fgnoomjkh" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AS3/">AS3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Starling/">Starling</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-starling学习笔记（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/10/starling学习笔记（一）/" class="article-date">
+  <time datetime="2013-03-10T07:44:06.000Z" itemprop="datePublished">Mar 10 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/10/starling学习笔记（一）/">Starling学习笔记（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>开学零零碎碎的时间，两个星期了，主要在学习<a href="http://gamua.com/starling/" title="Starling官网" target="_blank" rel="external">Starling</a>框架，给我的感觉很不错，易用，效率高。</p>
+<p><a href="http://gamua.com/starling/" target="_blank" rel="external"><img src="http://ftp142049.host115.web522.com/wp-content/uploads/2013/03/starling.jpeg" alt="" title="starling"></a></p>
+<p>刚开始还无从下手，都是在<a href="http://www.starlinglib.com/wiki/%E9%A6%96%E9%A1%B5" title="Starling中文站" target="_blank" rel="external">Starling中文站</a>照着学习和查阅<a href="http://www.starlinglib.com/wiki/APIReference" title="starlingAPI" target="_blank" rel="external">API文档</a>（中文）。还有就是<a href="http://pan.baidu.com/share/link?shareid=414334&amp;uk=3925949692" target="_blank" rel="external">中文说明书</a>，学着学着就大概知道怎么用了。</p>
+<p>Starling框架让使用Stage3D技术(在flash player 11中引入)创建二维程序和游戏成为可能。 它实现了和Flash 一样的显示列表系统，同时使用先进的GPUs加速渲染。以下讲讲我的体会：</p>
+<p>开发工具：Flash builder4.6(FB4.7用不习惯）, Flash Develop。（给我的感觉是fd写代码更快更方便一点）</p>
+<p>Starling框架：到官网下载starling包，里面有starling库源码和swc库文件以及一些demo项目文件。</p>
+<h4 id="Starling第一步"><a href="#Starling第一步" class="headerlink" title="Starling第一步"></a>Starling第一步</h4><p><strong>将您的项目链接到Starling swc库：</strong></p>
+<p>FB：建立新项目，在项目里建一个libs文件夹，把swc文件拉到里面，然后项目-属性-构建路径里添加libs（swc文件夹/文件）。</p>
+<p>FD：建立新项目，把swc文件拉到libs文件夹里，然后右键选择-添加到库。</p>
+<p><strong>建立启动类：</strong></p>
+<p>src源路径里添加新类（class）文件——作为starling启动类，继承自flash的Sprite（而下面Game类以及之后用到starling的都继承自starling的sprite）。代码如下：</p>
+<p><pre class="brush:as3">package<br>{<br>    import flash.display.Sprite;<br>    import starling.core.Starling;</pre></p>
+<pre><code>[SWF(frameRate = 60, width = 600, height = 1024, backgroundColor = 0xffffff)]
+public class Startup extends Sprite
+{    
+
+    public function Startup()
+    {
+        var _starling:Starling = new Starling(Game, stage);
+        _starling.start();
+    }
+
+}
+</code></pre><p>}<br>上面用核心starling类创建了starling对象_starling，然后用start方法启动它，这样，他就会按照设置好的信息[SWF…]渲染Game类了，Display显示列表和as原本的名字基本相似，所以容易混淆（常常自动填写代码错误…），但starling使用了stage3D，运行速度快。starling类还有其他用处，例如我常常就会习惯的加上_starling.showStats = true;来显示一些FPS和内存占用信息。</p>
+<p>查API文档可以知道，starling类还可以：</p>
+<blockquote>
+<p><strong>访问Starling对象</strong></p>
+<p>在你的程序里，你可以在任意时间通过静态方法<code>Starling.current</code>访问当前的Starling对象。它会返回 当前活跃的Starling实例（实际上大多数程序只会有一个Starling对象）。</p>
+<p><strong>观察口，视口</strong></p>
+<p>即是Starling内容渲染显示的范围，默认情况下是舞台大小。但是，你可以使用“viewport”属性去改变它。当你只想在屏幕的一部分中 渲染，或者播放器大小改变时，这个属性非常有用。随后你可以监听由Starling舞台发出的RESIZE事件。</p>
+<p><strong>原生Flash叠加层</strong></p>
+<p>有时你会想在Starling上面显示一些原生Flash内容，这就是<code>nativeOverlay</code>属性的作用。它返回的是在Starling之上 的原生FLash Sprite。你可以在叠加层内添加原生Flash对象。</p>
+<p>但是需要注意，在3D加速内容之上的原生Flash内容在某些（移动）平台上会有性能上的问题。因为这个原因，请注意删除这一层中所有 不需要和不再使用的对象。当这一层被置空后Starling会从显示列表中删除原生Flash叠加层。</p>
+<p><strong>多点触摸</strong></p>
+<p>对于提供支持多点触摸功能的设备，Starling也支持这项功能。在开发过程中，我们大多数基本上都是使用鼠标的键盘，Starling可以 在“Shift”和“Ctrl”的帮助下（Mac苹果机是“Cmd”）模拟实现多点触摸事件。启动<code>simulateMultitouch</code>属性就可以激活 这个功能。</p>
+<p><strong>处理丢失的渲染内容</strong></p>
+<p>在某些系统和某些条件下（例如，从系统睡眠中返回），Starling的stage3D渲染内容会丢失。如果类属性“handleLostContext” 设置为 “true” Starling会自动修复丢失内容。但是需要注意，这是以提高内存消耗为代价的。Starling会在内存中创建纹理缓存，这样 在内容丢失时才可以修复它。</p>
+<p>如果你想和丢失的内容交互，Starling在这个内容修复时发送”Event.CONTEXT3D_CREATE”事件，你可以在相对应的事件<strong><strong>*</strong></strong>中重新 创建这些不可用资源.</p>
+<p><strong>共享三维加速内容</strong></p>
+<p>正常情况下，Starling是独立处理stage3d加速内容。如果你想让Starling和其它的stage3d引擎同时使用，可能会达不到你需要的效果。 在这种情况下，你可以使用<code>shareContext</code>属性:</p>
+<ol>
+<li>手动创建和定义一个让两个框架公用的context3D对象 (通过<code>stage3D.requestContext3D</code> 和 <code>context.configureBackBuffer</code>)创建.</li>
+<li>使用已经定义了的context3d对象的stage3d实例来初始化Starling。 这样做会自动启用 <code>shareContext</code>.</li>
+<li>调用Starling实例的 <code>start()</code>(与往常一样). 这样做是让 Starling 对事件监听进行排队处理 (keyboard/mouse/touch).</li>
+<li>创建一个游戏逻辑（例如，使用原生的<code>ENTER_FRAME</code>事件）然后让它调用Starling的 <code>nextFrame</code>同时调用其它Stage3D引擎的同功能方法 . 相关类型的方法还有<code>context.clear()</code> 和 <code>context.present()</code>.<br>&nbsp;</li>
+</ol>
+</blockquote>
+<p>接着新建一个Game类，</p>
+<p><pre class="brush:as3">import starling.display.Sprite;<br>import starling.text.TextField;</pre></p>
+<p>public class Game extends Sprite<br>{<br>    public function Game()<br>    {<br>        var textField:TextField = new TextField(400, 300, “Hello Starling!”);<br>        addChild(textField);<br>    }<br>}<br>一贯的hello world啦~然后把启动类Startup设为文档类，就可以测试了，一般都能测试成功了，当然，要注意调用的是flash的还是starling的方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="cikvsxo84004flv8fzwuc6yqb" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AS3/">AS3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Starling/">Starling</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-初次接触haxe语言" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/02/21/初次接触haxe语言/" class="article-date">
+  <time datetime="2013-02-21T11:41:51.000Z" itemprop="datePublished">Feb 21 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Haxe/">Haxe</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/02/21/初次接触haxe语言/">初次接触Haxe语言</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>被“誉为”上帝的语言的Haxe,他是多么的强大。Haxe 项目是Flash开源界的最大贡献。 它的前身是大名鼎鼎的<a href="http://www.mtasc.org/" target="_blank" rel="external">mtasc</a>项目，mtasc 是一款开源的 actionscript 语言（Flash的脚本语言）编译器。2005 年，haxe开始开发。</p>
+<blockquote>
+<p>“One language，everywhere.”–HAXE.<br>什么是Haxe？它有什么特点？Haxe是一门“通用语言”(Universal Language)，使用haxe写的程序，可以编译成不同的其它语言源码，再进行编译。例如用haxe编码，然后可以编译成-JavaScript, Flash, NekoVM, PHP, C++, C# 和Java的源码，再进行编译。这是前所未有的“跨平台”。加上NME模块的支持的话，还支持iOS，Android，WindowsMobile，WebOS。这意味着你的应用可以轻易支持几乎所有流行的智能手机平台。</p>
+</blockquote>
+<p>参考haxe的相关资料：</p>
+<p><a href="http://haxe.org/index.n?lang=cn" target="_blank" rel="external">haxe官网（中文）</a>，（这个不知为何今天突然要搭梯子才能上了，之前还不用的，可能太强大以至于被Q了…）</p>
+<p><a href="http://www.csdn.net/article/2012-06-11/2806538" target="_blank" rel="external">Haxe：号称比Java还要跨平台的语言</a></p>
+<p><a href="http://www.cnblogs.com/xiaotie/archive/2012/04/19/2456447.html" target="_blank" rel="external">上帝的玩偶：haXe语言</a></p>
+<p><a href="http://blog.csdn.net/coollen_mmx/article/details/7908782" target="_blank" rel="external">Haxe：一次编码全平台编译的神话</a></p>
+<p>既然haxe这么厉害了，为什么还是没被广泛应用？</p>
+<p>见这篇：<a href="http://blog.csdn.net/wyyayy/article/details/7664441" target="_blank" rel="external">haxe，想说爱你不容易</a></p>
+<p>原本haxe就是起源于一个AS开源编译器<a href="http://www.mtasc.org/" target="_blank" rel="external">mtasc</a>。而flash开发者本身较少，所以很少人知道。（我也是用<a href="http://www.flashdevelop.org/" target="_blank" rel="external">flashdevelop</a>才知道原来有haxe，于某天好奇查阅其资料）</p>
+<p><a href="http://www.nme.io/" title="NME" target="_blank" rel="external">NME</a>介绍：</p>
+<p>NME是一个跨平台的框架，用于支持Windows, Mac, Linux, iOS, Android, BlackBerry, Flash 甚至是 HTML5.</p>
+<p>为什么说haxe很适合flash开发者学习？因为NME它给Haxe语言中添加了名叫nme的包（Package），这个包内部包含了非常多的Flash中的同名库。这里有<a href="http://www.haxenme.org/api/" target="_blank" rel="external">API手册</a>，这里还有官网给<a href="http://www.nme.io/developer/guides/actionscript-developers/" target="_blank" rel="external">AS开发者的指导</a>。</p>
+<p>寒假在家用就笔记本，装了ubuntu，ubuntu上只能在<a href="http://fdt.powerflasher.com/" target="_blank" rel="external">fdt5</a>上尝试了下，用haxe写，确实和as3很相似，所以比较适应。</p>
+<p>不过fdt5相对与flashdevelop确实少了很多功能且是英文界面，而且官方也推荐flashdevelop。</p>
+<p>在linux上搭建环境确实十分麻烦，我也是糊里糊涂的搭建完，迟些在windows上再试试。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="cikvsxo76003clv8f2jkqznr5" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Haxe/">Haxe</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-air做了个类似猜硬币的东西" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/12/23/air做了个类似猜硬币的东西/" class="article-date">
+  <time datetime="2012-12-23T13:55:57.000Z" itemprop="datePublished">Dec 23 2012</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>►<a class="article-category-link" href="/categories/AS3-0/创作/">创作</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/12/23/air做了个类似猜硬币的东西/">air做了个类似猜硬币的东西~</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>想了下差不多这个学期都怎么敲过代码做东西了，今天下午花了个把小时做了个抛硬币的小玩意，并弄到air for android上，运行良好（虽然中间打包是遇到些问题，但换个英文路径解决了）。</p>
+<p>用flash pro cs6简单的时间轴编程，关键代码只用到了math.round()和math.random()组合，即，math.round(math.random()) ，50%概率取0或1，0、1代表正反。两个变量number，分别代表玩家猜的和硬币结果。两个if条件语句分别判断硬币结果显示动画和猜对与否，一个显示对错的动态文本（使用设备字体），以及n个鼠标单击侦听事件。</p>
+<p>设计比较简单，（发现自己一直喜欢这么简单，但明显不能太过简单，例如这个app的icon，容易遭吐槽….)</p>
+<p>发现用处就是决定是否去做一件事，或者两人决定谁去楼下拿外卖……</p>
+<p>观赏如下：</p>
+<object width="500" height="400" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="src" value="http://ftp142049.host115.web522.com/files/flash/shengguess.swf"><param name="play" value="true"><param name="quality" value="high"><param name="pluginspage" value="http://www.macromedia.com/go/getflashplayer"><embed width="500" height="282" type="application/x-shockwave-flash" src="http://ftp142049.host115.web522.com/files/flash/shengguess.swf" play="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"></object>
+
+<p>app for android名叫“猜一个（guessone）”(不要吐槽了~）</p>
+<p>手机or平板，先要装air运行时，然后才能运行air应用。不过apk里可以内嵌air运行时安装包。</p>
+<p><img src="http://ftp142049.host115.web522.com/files/picture/72.png" alt="" title="猜一个icon"><span style="color: #008080;"><span style="color: #000000;">猜一个.</span>apk</span>下载：</p>
+<p><span style="color: #008080;"> <a href="http://pan.baidu.com/share/link?shareid=196968&amp;uk=3925949692&amp;third=0" target="_blank" rel="external"><span style="color: #008080;">内嵌air版（8.4M)</span></a></span></p>
+<p><span style="color: #008080;"><a href="http://pan.baidu.com/share/link?shareid=196987&amp;uk=3925949692&amp;third=0" target="_blank" rel="external"><span style="color: #008080;">无air小文件版(62KB)</span></a></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2012/12/23/air做了个类似猜硬币的东西/" data-id="cikvsxo8s0057lv8f5aa5fs65" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flash/">Flash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/air/">air</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/创作/">创作</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-flash基础巩固-（2mvc应用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/11/25/flash基础巩固-（2mvc应用/" class="article-date">
+  <time datetime="2012-11-25T09:12:21.000Z" itemprop="datePublished">Nov 25 2012</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/11/25/flash基础巩固-（2mvc应用/">Flash基础巩固-（2)MVC应用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>昨天天看到flash开发者大会在上海举行的微博，看到好多技术大牛在分享他们的对flash的见解。AGAL图像处理、AS4明年的到来、Starling框架、Flash RIA技术、away3d、Stage3d、air对blackberry的支持，等等很多都让我感到自己真的好渺小啊，要学的还有很多！加油！</p>
+<p>这两天在了解MVC的应用。感觉mvc是对于一些较大的项目开发比较实用，将程序划分为model、view、control，将有利于对代码的维护、改进，开发起来更加有条理性。model作为模型，创建了程序需要的数据；view视图呈现给用户交互的界面，监听及调用control方法，改变model数据。mvc化能降低程序的耦合度*，使程序模式化。</p>
+<p>其中mvc在flash应用中较出名的就是PureMVC了。</p>
+<p>PureMVC，就如同它的名字是，它是一个纯粹的小巧的MVC框架，支持多语言。其中支持as2、as3。</p>
+<p>PureMVC中还有另外一个单例模式类——Facade，Facade提供了与核心层通信的唯一接口，以简化开发复杂度。</p>
+<p>Facade（观察者）统领着MVC三大结构，可以注册、销毁、查询command、proxy、mediator<br>Command（命令）用以操作接受Notification（通知），然后执行相应的动作<br>Proxy（数据代理）负责提供数据的访问和修改接口，同时随时发布相应的通知告诉外界。<br>Mediator（视图媒介）负责将界面展现出来，提供用户界面等等，它不但可以接收通知，也可以往外发送通知。<br>Notification（通知） 这相当于常用的Event，不过功能更强，用以触发Command或者Mediator的处理。而且因为封装过，不会过多依赖开发语言。</p>
+<p><strong>Model 与 Proxy</strong></p>
+<p>Model保存对Proxy对象的引用，Proxy负责操作数据模型，与远程服务通信存取数据。</p>
+<p>这样保证了Model层的可移植性。</p>
+<p><strong>View 与 Mediator</strong></p>
+<p><div> View保存对Mediator对象的引用。由Mediator对象来操作具体的视图组件（View Component，例如Flex的DataGrid组件），包括：添加事件<strong><strong>*</strong></strong>，发送或接收Notification ，直接改变视图组件的状态。</div></p>
+<p><div> 这样做实现了把视图和控制它的逻辑分离开来。</div><br><strong>Controller 与 Command</strong></p>
+<p><div> Controller保存所有Command的映射。Command类是无状态的，只在需要时才被创建。</div><br>Command可以获取Proxy对象并与之交互，发送Notification，执行其他的Command。经常用于复杂的或系统范围的操作，如应用程序的“启动”和“关闭”。应用程序的业务逻辑应该在这里实现。</p>
+<p><strong>Facade 与 Core</strong></p>
+<p><div> Facade类应用单例模式，它负责初始化核心层（Model，View和Controller），并能访问它们的Public方法。</div></p>
+<p><div> 这样，在实际的应用中，你只需继承Facade类创建一个具体的Facade类就可以实现整个MVC模式，并不需要在代码中导入编写Model，View和Controller类。</div><br>Proxy、Mediator和Command就可以通过创建的Facade类来相互访问通信。</p>
+<p><strong>Observer 与 Notification</strong></p>
+<p>PureMVC的通信并不采用Flash的EventDispatcher/Event，因为PureMVC可能运行在没有Flash Event和EventDispatcher类的环境中，它的通信是使用观察者模式以一种松耦合的方式来实现的。你可以不用关心PureMVC的Observer/Notification机制是怎么实现的，它已经在框架内部实现了。你只需要使用一个非常简单的方法从Proxy, Mediator, Command和Facade发送Notification，甚至不需要创建一个Notification实例。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>小记：</strong>我对PureMVC的学习实在太浅了，很多都还只停留在认知程度，还没用于实践，当然，实践实践，还是需要时间的~flash还有很多东西要去学，不能一口吃成一个胖子，mvc作为一种编程思想，很考验程序员的逻辑思维，我自认这方面也一般般，总是想东西想到头大:P，嗯，对了，还有一个flash的mvc框架——Robotlegs，机器人双脚，哈~还是要很努力才行，yeah！寒假快到了，工作室又得招收新鲜血液了！我要多多准备，期待下一次真正的团队开发！</p>
+<p><strong>参考资料：</strong></p>
+<ol>
+<li>天地会论坛 rainssong《[心得] PureMVC闲谈》（一）（二）（三）（四）（五）<a href="http://bbs.9ria.com/thread-128680-1-2.html" target="_blank" rel="external">http://bbs.9ria.com/thread-128680-1-2.html</a></li>
+<li><a href="http://baike.baidu.com/view/2044900.htm" target="_blank" rel="external">百度百科</a></li>
+<li>AS3 mvc应用<a href="http://neveras.blog.51cto.com/1122618/255181" target="_blank" rel="external">http://neveras.blog.51cto.com/1122618/255181</a></li>
+<li>官方帮助文档：<a href="http://puremvc.org/" target="_blank" rel="external">http://puremvc.org/</a></li>
+<li>pureMVC四步走：<a href="http://bbs.9ria.com/viewthread.php?tid=58666" target="_blank" rel="external">http://bbs.9ria.com/viewthread.php?tid=58666</a></li>
+<li>pureMVC之helloworld：<a href="http://www.cnblogs.com/yjmyzz/archive/2010/07/27/1786123.html" target="_blank" rel="external">http://www.cnblogs.com/yjmyzz/archive/2010/07/27/1786123.html</a></li>
+</ol>
+<p>&nbsp;</p>
+<blockquote>
+<p>*耦合度：</p>
+<p>软件设计中通常用耦合度和内聚度作为衡量模块独立程度的标准。划分摸块的一个准则就是高内聚低耦合。<br>耦合度是指模块之间联系的紧密程度。<br>模块间的耦合度是指模块之间的依赖关系，包括控制关系、调用关系、数据传递关系。模块间联系越多，其耦合性越强，同时表明其独立性越差。降低模块间的耦合度能减少模块间的影响，防止对某一模块修改所引起的“牵一发动全身”的水波效应，保证系统设计顺利进行。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2012/11/25/flash基础巩固-（2mvc应用/" data-id="cikvsxo8h004nlv8fq8v7xb76" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVC/">MVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PureMVC/">PureMVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础/">基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-flash基础巩固-（1何为mvc？" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2012/11/22/flash基础巩固-（1何为mvc？/" class="article-date">
@@ -347,9 +726,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>快半年了，说说我对工作室的体会吧。</p>
-<p>&nbsp;</p>
-<p><strong>假如我没来维生数工作室，我会后悔的</strong></p>
+        <h2 id="快半年了，说说我对工作室的体会吧。"><a href="#快半年了，说说我对工作室的体会吧。" class="headerlink" title="快半年了，说说我对工作室的体会吧。"></a>快半年了，说说我对工作室的体会吧。</h2><p><strong>假如我没来维生数工作室，我会后悔的</strong></p>
 <p>上个学期的这个时候，我还在担心进不进得了工作室呢？因为我怕技术牛人太多，工作室要求太高，但最终我还是来了，这个名叫“维生数”的工作室。</p>
 <p>工作室在这短短一学期里真的给了我很多很多，假如我没来维生数工作室，我会后悔的。这里有我理想中的团队，理想中的学习环境。在这里我很开心，反过来想我却无法对工作室做出什么贡献，我的技术有限，我的能力有限，但接下来我会努力学习技术，我会更加努力地尝试真正成为工作室的一份子，融入工作室，改变工作室，让工作室的明天更好！<br>
         
@@ -413,239 +790,6 @@
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flex/">Flex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-各种忙" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/03/29/各种忙/" class="article-date">
-  <time datetime="2012-03-29T11:08:03.000Z" itemprop="datePublished">Mar 29 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/03/29/各种忙/">各种忙</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前段时间社团部门各种忙，现在终于都忙完了，20天没碰as3了。也没写博客了， 几乎天天晚上都忙到1、2点。做不完的海报，传单，各部门之间的联系又烂，什么都没整理好就让我做海报……</p>
-<p>哎，现在终于可以好好学代码了，再学flex开发，去图书馆借了几本书，感觉flex开发挺有趣，貌似音乐播放器、浏览器等软件都能开发，真想学会。</p>
-<p>清明之后还要参加水火箭比赛，和一个模型去参赛，估计又得忙一阵了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/03/29/各种忙/" data-id="cikvsxo6u002zlv8fqsui3009" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-知其然而不知其所以然" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/03/06/知其然而不知其所以然/" class="article-date">
-  <time datetime="2012-03-06T14:29:22.000Z" itemprop="datePublished">Mar 6 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/03/06/知其然而不知其所以然/">知其然而不知其所以然</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我感觉我现在对AS3的学习就是这样，这几天在做个仿切水果的游戏常常遇到问题经过不断尝试解决了后，却很难说出其中的原理。</p>
-<p>像昨天忙了一个晚上对一个变量的引用，才搞懂问题所在；以及今天下午尝试了很久才发现添加enterFrame事件侦听器的地方不该在那里；以及对数组的引用。虽然在尝试解决的过程中有了新的认识，对一些代码有更深的了解，但我那感觉还是模棱两可的，因为自己都不敢确定是不是所想的那样。再次遇到同样的问题，却找不到根本的原因，得到最直接的解决办法，而又需要不断地尝试，才会发现另一个解决办法，而还是不知道其中的真正原因。</p>
-<p>显然这对于一个代码学习者来说是不好的，虽然这样学会的会印象深刻，但却走了很多弯路，也浪费了很多时间。本身大学空余的时间就不多，我不该在这方面去浪费时间。而且我也感觉我是太过急了，不好好学基础，把基础打劳，就去实践。没完全搞明白化学反应原理，就去搞化学反应，这是同样的道理。</p>
-<p>所以，从明天起，我要开始回顾基础，而且要学得深入，明白面向对象编程的方法，搞清楚代码运作的原理。</p>
-<p>&nbsp;</p>
-<p>另外我发现了一个好东西，flash cs5 ActionScript3.0 的中文参考帮助的chm文档，以后看书遇到不认识的代码就可以往里面一搜索，就会找到相应的介绍，很方便很实用。</p>
-<p><a href="ftp://**:***@218.75.14.197/code9/china-code.net.zhy.201111121312970605211.Rar" title="flash CS5 的 ActionScript 3.0 参考 chm" target="_blank" rel="external">ftp://<strong>:*</strong>@218.75.14.197/code9/china-code.net.zhy.201111121312970605211.Rar</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/03/06/知其然而不知其所以然/" data-id="cikvsxo5p000tlv8f48k8c8sw" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/as3参考文档/">as3参考文档</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础/">基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-发现了一个有趣的游戏-切绳子" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/02/25/发现了一个有趣的游戏-切绳子/" class="article-date">
-  <time datetime="2012-02-25T04:56:14.000Z" itemprop="datePublished">Feb 25 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/02/25/发现了一个有趣的游戏-切绳子/">发现了一个有趣的游戏——切绳子</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天看同学用手机玩一个叫《切绳子》的游戏，发现很有趣。而且有个用html5做的网页版，猛击<a href="http://www.cuttherope.ie" title="Cup the Rope" target="_blank" rel="external">此处</a>进入</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/02/25/发现了一个有趣的游戏-切绳子/" data-id="cikvsxo6v0031lv8fcgsrlvig" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-我发现我真的是喜欢上as3了" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/02/24/我发现我真的是喜欢上as3了/" class="article-date">
-  <time datetime="2012-02-24T14:41:56.000Z" itemprop="datePublished">Feb 24 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/02/24/我发现我真的是喜欢上as3了/">我发现我真的是喜欢上AS3了</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>发现自己对游戏的兴趣越来越淡了，看到舍友们在玩游戏看电影的时候，我都提不起兴趣跟他们一起，要是上学期的话，我一定会一起来。但是我发现我变了，我现在一有空就会想到代码，满脑子都是在想代码如何运行，每每想通了一点后，就会很开心。在宿舍打开电脑后网也很少上了，基本上就是拿着书打开flash来打代码学习，当然少不了带上耳塞听歌……</p>
-<p>这几天为了弹球游戏在思考，发现我还有很多东西还没学会，很多效果达不到，例如让小球在凹凸不平的平面上弹，根据物理。今天我就学了在不同角度平面上回弹，虽然大概原理懂了，但还是有一些不懂，明天还要在继续学习。而且我发现越到后面用到的数学物理知识就越多，计算思考量也多，常常很头痛……一看到一大堆sin、cos在计算我就烦了，但还是要耐心看下去，不能放弃！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/02/24/我发现我真的是喜欢上as3了/" data-id="cikvsxo68001ylv8fx564fcrm" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-军训开始了，时间变少了" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/02/20/军训开始了，时间变少了/" class="article-date">
-  <time datetime="2012-02-20T15:15:51.000Z" itemprop="datePublished">Feb 20 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/02/20/军训开始了，时间变少了/">军训开始了，时间变少了</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>大学为期12天的军训今天开始了，空余时间也就少了，as3学习时间也就少了……只有晚上一丁点时间了，今晚做了一个喷泉，由很多粒子组成的，从下边一点随机上抛运动，粒子下来出边界后去除并重新在原始位置再现，重复。十分有趣。</p>
-<p>时间虽然少，但很充实。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/02/20/军训开始了，时间变少了/" data-id="cikvsxo7j003hlv8f8lhcb3jo" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
 
     </footer>
   </div>
