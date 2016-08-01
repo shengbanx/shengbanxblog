@@ -138,6 +138,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-开始学习flex开发！" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/04/26/开始学习flex开发！/" class="article-date">
+  <time datetime="2012-04-26T13:45:31.000Z" itemprop="datePublished">Apr 26 2012</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日志/">日志</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/04/26/开始学习flex开发！/">开始学习Flex开发！</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>RIA，也就是Rich Internet Application(富互联网应用程序)。RIA指新一代web应用。</p>
+<p><a href="http://ftp142049.host115.web522.com/wp-content/uploads/2012/04/b5ce9254c774dc263b293570.jpg" target="_blank" rel="external"><img src="http://ftp142049.host115.web522.com/wp-content/uploads/2012/04/b5ce9254c774dc263b293570-300x224.jpg" alt="" title="b5ce9254c774dc263b293570"></a></p>
+<p>Adobe Flash Builder 4,也就是最新一代的flex版本，今天试着用了一下，发现很强大，那功能。</p>
+<p>其实刚开始接触到这方面的概念时，我是想用Flex开发软件用的，因为学习flash as3这么长一段时间了，发现as3除了做一些特效，游戏、网络应用等，很少其他用处，而且逐渐地，有被html5强大的功能取代的趋势。（发现有很多html5做的游戏，不错，不过html5还是无法克服其占用内存太多，运行慢的缺点，做不了大游戏）所以，当知道有flex这东西的时候，我就开始很感兴趣了，开始迷上了RIA这个词，这是一个很棒的词，至少我觉得。我想用As3来开发软件，我从小就想开发自己的软件了，想想，别人都用着自己开发的软件的时候，那是多么得自豪。哈哈，想多了，才刚接触就想这么远的事，有什么用，赶紧学习，学会怎么做吧。</p>
+<p>话说，工大在线要改版了，再过两个星期。然后，flash组要讨论一下用FB把工大在线推出一个移动客户端。也就是在安卓等智能机上的应用，不知道可不可行，我才初学，压力山大啊。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2012/04/26/开始学习flex开发！/" data-id="cikvsxo6i002clv8fpbl743ak" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flex/">Flex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-各种忙" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2012/03/29/各种忙/" class="article-date">
@@ -560,172 +609,6 @@
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/寒假/">寒假</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-一个小球到一串小球无聊小球" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/01/14/一个小球到一串小球无聊小球/" class="article-date">
-  <time datetime="2012-01-14T13:25:48.000Z" itemprop="datePublished">Jan 14 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/01/14/一个小球到一串小球无聊小球/">一个小球到一串小球……@无聊小球</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>是这样的，又看书学着做了一个小球弹性运动，就是一条橡皮筋拉着小球运动，橡皮筋的另一头就是你的鼠标位置。<br>scale3.as代码如下：</p>
-<p><pre class="brush:as3">package  {<br>    import oneball.Ball;<br>    import flash.display.Sprite;<br>    import flash.events.Event;</pre></p>
-<pre><code>public class Scale3 extends Sprite{
-
-    //Mouse.hide();
-
-    private var friction:Number=0.85;
-    private var g:Number=0.98;
-    private var mass:Number=10;
-    private var gravity:Number=g*mass;
-    private var ball:Ball;
-    private var scale:Number=0.3;
-    private var vx:Number=50;
-    private var vy:Number=50;
-
-    public function Scale3() {
-        init();
-    }
-
-    private function init():void{
-        ball=new Ball;
-        addChild(ball);
-        addEventListener(Event.ENTER_FRAME,onEnterFrame);
-    }
-
-    function onEnterFrame(e:Event):void{
-        var dx:Number=mouseX-ball.x;
-        var dy:Number=mouseY-ball.y;
-        var ax:Number=dx*scale;
-        var ay:Number=dy*scale;
-        vx+=ax;
-        vy+=ay;
-        vy+=gravity;
-        vx*=friction;
-        vy*=friction;
-        ball.x+=vx;
-        ball.y+=vy;
-        graphics.clear();
-        graphics.lineStyle(1);
-        graphics.moveTo(ball.x,ball.y);
-        graphics.lineTo(mouseX,mouseY);
-    }
-
-}
-</code></pre><p>}<br>然后，由一个小球变成一串小球的时间到了！总不会是一个个代码添加吧，肯定不会啦！在之前的ball类加入自定公用变量属性vx和vy，并且把初始值改为0。使用moveBall方法，包含所有运动代码。然后创建一个数组来保存对这串球的每一个小球的引用，然后循环整个数组来运动每一个小球，然后就绘制直线。</p>
-<p>具体就是，开始时上面init函数通过for循环创建每一个物体，并添加到数组中，然后onEnterFrame方法中，开始时设置直线样式，移动绘制的位置到鼠标位置，移动第一个小球，绘制一个到它的直线。，然后循环数组中剩下的小球，轮流移动并接着绘制线。</p>
-<p>Scale4代码如下：</p>
-<p><pre class="brush:as3">package  {<br>    import oneball.Ball;<br>    import flash.display.Sprite;<br>    import flash.events.Event;</pre></p>
-<pre><code>public class Scale4 extends Sprite{
-
-    //Mouse.hide();
-    private var balls:Array;
-    private var numBalls:Number=5;
-    private var friction:Number=0.7;
-    private var g:Number=0.98;
-    private var mass:Number=10;
-    private var ball:Ball;
-    private var gravity:Number=g*mass;
-    private var scale:Number=0.4;
-    private var vx:Number;
-    private var vy:Number;
-
-    public function Scale4() {
-        init();
-    }
-
-    //for循环创建小球
-    private function init():void{
-        balls=new Array();
-        for(var i:uint=0;i&amp;lt;numBalls;i++){
-            var ball:Ball=new Ball(20);
-            addChild(ball);
-            balls.push(ball);
-        }
-        addEventListener(Event.ENTER_FRAME,onEnterFrame);
-    }
-
-    function onEnterFrame(e:Event):void{
-        graphics.clear();
-        graphics.lineStyle(1);
-        graphics.moveTo(mouseX,mouseY);
-        moveBall(balls[0],mouseX,mouseY);
-        graphics.lineTo(balls[0].x,balls[0].y);
-
-        for(var i:uint=1;i&amp;lt;numBalls;i++){
-            var ballA:Ball=balls[i-1];
-            var ballB:Ball=balls[i];
-            moveBall(ballB,ballA.x,ballA.y);
-            graphics.lineTo(ballB.x,ballB.y);
-        }
-    }
-    private function moveBall(ball:Ball,targetx:Number,targety:Number):void{
-        ball.vx+=(targetx-ball.x)*scale;
-        ball.vy+=(targety-ball.y)*scale;
-        ball.vy+=gravity;
-        ball.vx*=friction;
-        ball.vy*=friction;
-        ball.x+=ball.vx;
-        ball.y+=ball.vy;
-    }
-
-}
-</code></pre><p>}<br>Ball类代码Ball.as：</p>
-<p><pre class="brush:as3">package{<br>    import flash.display.Sprite;</pre></p>
-<pre><code>public class Ball extends Sprite{
-    public var radius:Number;
-    private var color:uint;
-    public var vx:Number=0;
-    public var vy:Number=0;
-
-    public function Ball(radius:Number=40,color:uint=0x116666){
-        this.radius=radius;
-        this.color=color;
-        init();
-    }
-    public function init():void{
-        graphics.beginFill(color);
-        graphics.drawCircle(0,0,radius);
-        graphics.endFill();
-    }
-}
-</code></pre><p>}<br>可以看到，只要修该numBall的值就可任意添加小球，修改“摩擦系数”和“弹力系数”和或者去掉重力，不同组合有不同玩法，绝对玩不厌，还可以调高帧频，看起来更快。玩法多样，如：10个小球组成的毛毛虫，改小摩擦系数0.6，或者还可以去掉重力，然后用鼠标模拟毛毛虫运动吧….<br>真的好无聊，还可以把1000个圆叠加成“画笔”来画…….</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/01/14/一个小球到一串小球无聊小球/" data-id="cikvsxo7w0040lv8f4vw4zin6" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AS3/">AS3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ActionScript3/">ActionScript3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/一串小球/">一串小球</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无聊小球/">无聊小球</a></li></ul>
 
     </footer>
   </div>
