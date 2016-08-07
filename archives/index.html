@@ -200,6 +200,91 @@
 
 
   
+    <article id="post-Lock Screen is Your New Home" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/Lock Screen is Your New Home/" class="article-date">
+  <time datetime="2016-07-03T13:56:01.000Z" itemprop="datePublished">Jul 3 2016</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Translation/">Translation</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/03/Lock Screen is Your New Home/">iOS 10锁定屏幕将成为新的主屏——分析&amp;Redesign</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://shengbanx.qiniudn.com/blog/files/1-ER90MM_46K_SnrPNgW1soA.png" alt="iOS 10 Preview"></p>
+<p>一年一度的WWDC今年带来了不少好消息。苹果未来的方向真是令人兴奋，如果真要我讲这些的话我可以讲足一整天，但这次想分享的是一个关于iOS上的特别部分——锁定屏幕的研究。 </p>
+<hr>
+<h3 id="累赘的锁定屏幕（iOS-10-以前）"><a href="#累赘的锁定屏幕（iOS-10-以前）" class="headerlink" title="累赘的锁定屏幕（iOS 10 以前）"></a>累赘的锁定屏幕（iOS 10 以前）</h3><p>99%的时候，解锁手机的交互流程是这样的： </p>
+<ol>
+<li>按下Home键唤醒手机 📲（据我观察，大部分人都会选择使用Home键唤醒手机，而不是使用手机的锁定键）</li>
+<li>TouchID 识别你的手指和解锁手机 🔓</li>
+<li>到达主屏 🌟  </li>
+</ol>
+<p>解锁手机只需要点击一下（有TouchID后），看起来很不错是吗？并不是…这样你有多少时间用在锁屏和阅读通知上呢？可能只是少于一秒。除非你是机器人，不然根本无法在这么短的时间里阅读锁屏上的通知信息。 </p>
+<p>TouchID是一个很棒的功能，拥有严密的安全性，让iOS可以使用方便的Apple Pay功能。然而，使用TouchID解锁却妨碍了快速预览通知消息。这么看来锁屏就变得有点多余了。 </p>
+<p>所以这次，苹果在iOS10上为了解决这个的“死循环”，推出了“抬起唤醒（Raise to wake）”功能，以及在锁定屏幕可以使用Force Touch提供更多的实用功能（或者老设备上使用长按功能）。</p>
+<hr>
+<h3 id="苹果的解决方案"><a href="#苹果的解决方案" class="headerlink" title="苹果的解决方案"></a>苹果的解决方案</h3><p>“抬起唤醒”是个让你悔恨为何不早点出现的实用功能。试想当你想查看手机的时候（收到了新的消息），你会拿起你的手机、或者从口袋里取出来，然后放到你的视野前查看。这时候不需要按下任何按键，屏幕会自动亮起，并显示所有通知。 </p>
+<p>这样用户在未解锁手机的情况下进行交互，改变了我刚刚提出的第一步中的用户行为，却同样实现了唤醒手机。 而前者在唤醒手机的同时还可以阅读通知消息。</p>
+<p>而为了让锁定屏幕扮演一个更加重要的角色，苹果甚至为iOS10带来了“丰富化通知”功能。举个例子，以后用户可以在锁屏界面中回复短信，而不需要解锁和进入到相关的App里面。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/1-ie67aSNlZ3nmAJl-TEP0zA.jpeg" alt="曝光的 iOS 10 新功能"></p>
+<p>嗯…这样锁定屏幕看起来就完美了吗？ </p>
+<hr>
+<h3 id="另一个问题——分组合并"><a href="#另一个问题——分组合并" class="headerlink" title="另一个问题——分组合并"></a>另一个问题——分组合并</h3><p>在观看WWDC直播的时候，我就想到相同App的通知消息应该可以合并。这不是理所当然的吗？ </p>
+<p>事实上，情况并非如此。我第一时间安装了iOS10的beta版，发现群组消息根本就没有（至少在beta 1）。非常失望…MacRumors的文章也是一样的情况。 </p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/1-ucSv0iq4Y_mN8fXjuidkig.png" alt="苹果公司，你这是在逗我吗? 竟然没有合并同类消息？！ "></p>
+<p>我举两点说明这个问题。   </p>
+<p><strong>没有分组</strong></p>
+<p>即使你不是UI/UX设计方面的专家，你也知道在接收到很多通知消息时，屏幕会显得笨拙，例如同时在5个不同的App上的10个群组聊天信息（当然可能不会出现在你身上，但你应该能get到我说的这个点 🙂）。  </p>
+<p>另外，卡片之间也浪费了很多空间。 </p>
+<p>这样的设计给用户带来混乱，同时也不符合iOS向来引以为傲的简洁优雅。   </p>
+<p>这种失望驱使我做出行动。在使用iOS10数天之后，决定结合我的想法，尝试重新设计锁定屏幕上的通知消息。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/1-YNL9RYUarYPOEIIx0jR8_g.png" alt="通知消息的重新构想 ">  </p>
+<hr>
+<h3 id="我的Redesign设计"><a href="#我的Redesign设计" class="headerlink" title="我的Redesign设计"></a>我的Redesign设计</h3><p>你可以在上面的mockup中看到，新的设计中，来自相同App的通知消息会被合并，这样就很简单地解决了我提出的问题 ✅ 。</p>
+<p>当我开始重新设计锁定屏幕的时候，Spark马上就出现在脑海中。Spark是个伟大的Email App，我每天都在使用（如果你仍在寻找优秀的Email App，那么不用找了，强力推荐Spark！）。它整齐地呈现了不同的列表（“新信息”、“推广邮件”、“置顶”）,十分类似于苹果正在iOS 10上尝试的新锁定屏幕。 </p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/spark.jpg" alt="Spark和iOS 10 锁定屏幕">  </p>
+<p>用了一个下午时间，我设计了不同的UI界面，展示如何让锁定屏幕上的交互变得更好。最后完成如下：</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/1-k0yaJYzBKyW4q9ggVfPiVQ.png" alt="为了与iOS保持一致 ，我是用了和iOS 10官网上一样的板式">  </p>
+<p>感谢阅读我的Redesign报告。欢迎任何反馈和建议💡。<br>——Zuno, Timeto联合创始人&amp;设计师</p>
+<blockquote>
+<p>本文由shengbanx翻译整理，原文版权归属原作者所有<br>转载须注明来源及以下信息：</p>
+<p>原文发表于Medium 16年6月17日<br>《<a href="https://medium.com/@wanderize/lock-screen-is-your-new-home-ios-10-analyze-redesign-4e7f5444ff1c" target="_blank" rel="external">Lock Screen is Your New Home (iOS 10 Analyze &amp; Redesign)</a>》<br>by Zuno Young</p>
+<p>shengbanx 译</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2016/07/03/Lock Screen is Your New Home/" data-id="cirjw3nbh0000yu8fdjerwfd3" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design/">design</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Virtual reality- Templates for UI design in VR" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/07/03/Virtual reality- Templates for UI design in VR/" class="article-date">
@@ -818,65 +903,9 @@
 
 
   
-    <article id="post-非职业搬砖" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/10/26/非职业搬砖/" class="article-date">
-  <time datetime="2014-10-26T14:10:11.000Z" itemprop="datePublished">Oct 26 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/26/非职业搬砖/">非职业搬砖</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>设计，尤其是互联网领域，地域性的影响已经微乎其微。设计风格常常很轻易地就在世界流行起来。极其细腻的拟物化、扁平化（包括长投影）、Low-poly（低面建模）都是这样。在这个过程中，需要一群无私奉献的人儿，在默默地搬砖（翻译外文）。</p>
-<p>我，自从7月加入<a href="http://www.ui.cn/user.php?id=76492" target="_blank" rel="external">IFEC</a>之后，每次看<a href="https://news.layervault.com" target="_blank" rel="external">Design News</a>、<a href="http://medium.com" target="_blank" rel="external">Medium</a>上精彩的文章都想顺手翻译过来，有种搬砖就是自己的使命的感觉。</p>
-<p>的确，设计圈里很多新鲜的事情都是先在国际的大圈子里流传开来，然后才是传到国内，甚至，很多经典的教程、经验文章没有翻译过来，这些好资源就这样被忽略了。<br>至今大部分设计师并不太习惯于阅读外文网站。更多的是依赖于UI中国、站酷、优设这样的网站上阅读中文文章，学习设计经验。这有赖于广大译者们。</p>
-<p>因为这个原因，加入了IFEC，也认识了Ma，和阳哥，还有群里的小伙伴。（虽然我潜水居多）。</p>
-<p>Ma真的很厉害，看着他翻译的<a href="http://www.ui.cn/user.php?id=88338" target="_blank" rel="external">文章数量</a>，我简直要将他树为偶像！而且制作动效的技术杠杠的！努力向他看齐。</p>
-<p>我的第一篇翻译是<a href="http://www.ui.cn/user.php?id=82886" target="_blank" rel="external">《去吧！网页动效》</a>，因为第一次翻译这么长的文章，我严谨地翻译每一个词句。翻译完后，不停修改努力地将文章语句翻译的更自然，阅读起来不带那么重的翻译腔。</p>
-<p>翻译腔，也就是我们平时看外国小说，电影频道的外国电影，因为直译而来的语序时态，一读就知道是国外翻译过来的。就像最经典的“我不能同意更多了”，一时成为了流行语。</p>
-<p>断断续续地，花了一个月才完成。中间还参与翻译了<a href="http://uxpin.com/web-design-patterns.html" target="_blank" rel="external">《2014移动设计模式》</a>这本电子书的一部分。</p>
-<p>最后翻译了<a href="http://www.ui.cn/project.php?id=29375" target="_blank" rel="external">《Low Poly神器带你飞》</a>，以及简单地翻译了这个神器<a href="http://somestuff.ru/I" target="_blank" rel="external">I ❤ △</a>，一个本地Web App。翻译的文章打算专门放到UI中国的账号上。（文章编辑器很棒，唯一不满意的一点就是不能添加代码风格文本= =#）可能还会备份到这个博客吧，或许。</p>
-<p>因为本身对设计的热爱，翻译的同时也加深自己的学习理解，顺便提高自己的英语水品~而且看着译文和其他人的收藏很有成就感。真的很不错。</p>
-<p>往往是一冲动就想翻译，然而空闲的时间不多。只能是选择自己觉得比较重要，比较新鲜的来翻译。</p>
-<p>相信以后会翻译更多文章，努力成为一名“非职业搬砖”的！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2014/10/26/非职业搬砖/" data-id="cirjs36m00000so8fbr3cxl6b" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/翻译/">翻译</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/2/">下一页</a>
+      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/2/">下一页</a>
     </nav>
   
 </section>
