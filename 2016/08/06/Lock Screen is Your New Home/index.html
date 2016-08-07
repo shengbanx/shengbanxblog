@@ -5,37 +5,37 @@
   
   <title>iOS 10锁定屏幕将成为新的主屏——分析&amp;Redesign | 伴星流形</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.3">
-  <meta name="description" content="一年一度的WWDC今年带来了不少好消息。苹果未来的方向真是令人兴奋，如果真要我讲这些的话我可以讲足一整天，但这次想分享的是一个关于iOS上的特别部分——锁定屏幕的研究。 
+  <meta name="description" content="一年一度的WWDC今年带来了不少好消息，苹果未来的方向真是令人兴奋。如果真要我讲这些的话我可以讲足一整天，但这次想分享的是一个关于iOS上的特别部分——锁定屏幕的研究。 
 
 累赘的锁定屏幕（iOS 10 以前）99%的时候，解锁手机的交互流程是这样的： 
 
 按下Home键唤醒手机 📲（据我观察，大部分人都会选择使用Home键唤醒手机，而不是使用手机的锁定键）
-TouchID 识别你的手指和解锁手">
+TouchID识别你的手指和解锁手机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 10锁定屏幕将成为新的主屏——分析&Redesign">
 <meta property="og:url" content="http://blog.shengbanx.com/2016/08/06/Lock Screen is Your New Home/index.html">
 <meta property="og:site_name" content="伴星流形">
-<meta property="og:description" content="一年一度的WWDC今年带来了不少好消息。苹果未来的方向真是令人兴奋，如果真要我讲这些的话我可以讲足一整天，但这次想分享的是一个关于iOS上的特别部分——锁定屏幕的研究。 
+<meta property="og:description" content="一年一度的WWDC今年带来了不少好消息，苹果未来的方向真是令人兴奋。如果真要我讲这些的话我可以讲足一整天，但这次想分享的是一个关于iOS上的特别部分——锁定屏幕的研究。 
 
 累赘的锁定屏幕（iOS 10 以前）99%的时候，解锁手机的交互流程是这样的： 
 
 按下Home键唤醒手机 📲（据我观察，大部分人都会选择使用Home键唤醒手机，而不是使用手机的锁定键）
-TouchID 识别你的手指和解锁手">
+TouchID识别你的手指和解锁手机">
 <meta property="og:image" content="http://shengbanx.qiniudn.com/blog/files/1-ER90MM_46K_SnrPNgW1soA.png">
 <meta property="og:image" content="http://shengbanx.qiniudn.com/blog/files/1-ie67aSNlZ3nmAJl-TEP0zA.jpeg">
 <meta property="og:image" content="http://shengbanx.qiniudn.com/blog/files/1-ucSv0iq4Y_mN8fXjuidkig.png">
 <meta property="og:image" content="http://shengbanx.qiniudn.com/blog/files/1-YNL9RYUarYPOEIIx0jR8_g.png">
 <meta property="og:image" content="http://shengbanx.qiniudn.com/blog/files/spark.jpg">
 <meta property="og:image" content="http://shengbanx.qiniudn.com/blog/files/1-k0yaJYzBKyW4q9ggVfPiVQ.png">
-<meta property="og:updated_time" content="2016-08-07T00:50:08.000Z">
+<meta property="og:updated_time" content="2016-08-07T00:57:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 10锁定屏幕将成为新的主屏——分析&Redesign">
-<meta name="twitter:description" content="一年一度的WWDC今年带来了不少好消息。苹果未来的方向真是令人兴奋，如果真要我讲这些的话我可以讲足一整天，但这次想分享的是一个关于iOS上的特别部分——锁定屏幕的研究。 
+<meta name="twitter:description" content="一年一度的WWDC今年带来了不少好消息，苹果未来的方向真是令人兴奋。如果真要我讲这些的话我可以讲足一整天，但这次想分享的是一个关于iOS上的特别部分——锁定屏幕的研究。 
 
 累赘的锁定屏幕（iOS 10 以前）99%的时候，解锁手机的交互流程是这样的： 
 
 按下Home键唤醒手机 📲（据我观察，大部分人都会选择使用Home键唤醒手机，而不是使用手机的锁定键）
-TouchID 识别你的手指和解锁手">
+TouchID识别你的手指和解锁手机">
   
   
     <link rel="icon" href="/favicon.png">
@@ -185,12 +185,12 @@ TouchID 识别你的手指和解锁手">
     <div class="article-entry" itemprop="articleBody">
       
         <p><img src="http://shengbanx.qiniudn.com/blog/files/1-ER90MM_46K_SnrPNgW1soA.png" alt="iOS 10 Preview"></p>
-<p>一年一度的WWDC今年带来了不少好消息。苹果未来的方向真是令人兴奋，如果真要我讲这些的话我可以讲足一整天，但这次想分享的是一个关于iOS上的特别部分——锁定屏幕的研究。 </p>
+<p>一年一度的WWDC今年带来了不少好消息，苹果未来的方向真是令人兴奋。如果真要我讲这些的话我可以讲足一整天，但这次想分享的是一个关于iOS上的特别部分——锁定屏幕的研究。 </p>
 <hr>
 <h3 id="累赘的锁定屏幕（iOS-10-以前）"><a href="#累赘的锁定屏幕（iOS-10-以前）" class="headerlink" title="累赘的锁定屏幕（iOS 10 以前）"></a>累赘的锁定屏幕（iOS 10 以前）</h3><p>99%的时候，解锁手机的交互流程是这样的： </p>
 <ol>
 <li>按下Home键唤醒手机 📲（据我观察，大部分人都会选择使用Home键唤醒手机，而不是使用手机的锁定键）</li>
-<li>TouchID 识别你的手指和解锁手机 🔓</li>
+<li>TouchID识别你的手指和解锁手机 🔓</li>
 <li>到达主屏 🌟  </li>
 </ol>
 <p>解锁手机只需要点击一下（有TouchID后），看起来很不错是吗？并不是…这样你有多少时间用在锁屏和阅读通知上呢？可能只是少于一秒。除非你是机器人，不然根本无法在这么短的时间里阅读锁屏上的通知信息。 </p>
@@ -204,7 +204,7 @@ TouchID 识别你的手指和解锁手">
 <p>嗯…这样锁定屏幕看起来就完美了吗？ </p>
 <hr>
 <h3 id="另一个问题——分组合并"><a href="#另一个问题——分组合并" class="headerlink" title="另一个问题——分组合并"></a>另一个问题——分组合并</h3><p>在观看WWDC直播的时候，我就想到相同App的通知消息应该可以合并。这不是理所当然的吗？ </p>
-<p>事实上，情况并非如此。我第一时间安装了iOS10的beta版，发现群组消息根本就没有（至少在beta 1）。非常失望…MacRumors的文章也是一样的情况。 </p>
+<p>事实上，情况并非如此。我第一时间安装了iOS10的beta版，发现群组消息根本就没有（至少在beta 1版本）。非常失望…MacRumors的文章也是一样的情况。 </p>
 <p><img src="http://shengbanx.qiniudn.com/blog/files/1-ucSv0iq4Y_mN8fXjuidkig.png" alt="苹果公司，你这是在逗我吗? 竟然没有合并同类消息？！ "></p>
 <p>我举两点说明这个问题。   </p>
 <p><strong>没有分组</strong></p>
