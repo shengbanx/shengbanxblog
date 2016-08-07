@@ -138,6 +138,85 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-flash基础巩固-（2mvc应用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/11/25/flash基础巩固-（2mvc应用/" class="article-date">
+  <time datetime="2012-11-25T09:12:21.000Z" itemprop="datePublished">Nov 25 2012</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/11/25/flash基础巩固-（2mvc应用/">Flash基础巩固-（2)MVC应用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>昨天天看到flash开发者大会在上海举行的微博，看到好多技术大牛在分享他们的对flash的见解。AGAL图像处理、AS4明年的到来、Starling框架、Flash RIA技术、away3d、Stage3d、air对blackberry的支持，等等很多都让我感到自己真的好渺小啊，要学的还有很多！加油！</p>
+<p>这两天在了解MVC的应用。感觉mvc是对于一些较大的项目开发比较实用，将程序划分为model、view、control，将有利于对代码的维护、改进，开发起来更加有条理性。model作为模型，创建了程序需要的数据；view视图呈现给用户交互的界面，监听及调用control方法，改变model数据。mvc化能降低程序的耦合度*，使程序模式化。</p>
+<p>其中mvc在flash应用中较出名的就是PureMVC了。</p>
+<p>PureMVC，就如同它的名字是，它是一个纯粹的小巧的MVC框架，支持多语言。其中支持as2、as3。</p>
+<p>PureMVC中还有另外一个单例模式类——Facade，Facade提供了与核心层通信的唯一接口，以简化开发复杂度。</p>
+<p>Facade（观察者）统领着MVC三大结构，可以注册、销毁、查询command、proxy、mediator<br>Command（命令）用以操作接受Notification（通知），然后执行相应的动作<br>Proxy（数据代理）负责提供数据的访问和修改接口，同时随时发布相应的通知告诉外界。<br>Mediator（视图媒介）负责将界面展现出来，提供用户界面等等，它不但可以接收通知，也可以往外发送通知。<br>Notification（通知） 这相当于常用的Event，不过功能更强，用以触发Command或者Mediator的处理。而且因为封装过，不会过多依赖开发语言。</p>
+<p><strong>Model 与 Proxy</strong></p>
+<p>Model保存对Proxy对象的引用，Proxy负责操作数据模型，与远程服务通信存取数据。</p>
+<p>这样保证了Model层的可移植性。</p>
+<p><strong>View 与 Mediator</strong></p>
+<p><div> View保存对Mediator对象的引用。由Mediator对象来操作具体的视图组件（View Component，例如Flex的DataGrid组件），包括：添加事件<strong><strong>*</strong></strong>，发送或接收Notification ，直接改变视图组件的状态。</div></p>
+<p><div> 这样做实现了把视图和控制它的逻辑分离开来。</div><br><strong>Controller 与 Command</strong></p>
+<p><div> Controller保存所有Command的映射。Command类是无状态的，只在需要时才被创建。</div><br>Command可以获取Proxy对象并与之交互，发送Notification，执行其他的Command。经常用于复杂的或系统范围的操作，如应用程序的“启动”和“关闭”。应用程序的业务逻辑应该在这里实现。</p>
+<p><strong>Facade 与 Core</strong></p>
+<p><div> Facade类应用单例模式，它负责初始化核心层（Model，View和Controller），并能访问它们的Public方法。</div></p>
+<p><div> 这样，在实际的应用中，你只需继承Facade类创建一个具体的Facade类就可以实现整个MVC模式，并不需要在代码中导入编写Model，View和Controller类。</div><br>Proxy、Mediator和Command就可以通过创建的Facade类来相互访问通信。</p>
+<p><strong>Observer 与 Notification</strong></p>
+<p>PureMVC的通信并不采用Flash的EventDispatcher/Event，因为PureMVC可能运行在没有Flash Event和EventDispatcher类的环境中，它的通信是使用观察者模式以一种松耦合的方式来实现的。你可以不用关心PureMVC的Observer/Notification机制是怎么实现的，它已经在框架内部实现了。你只需要使用一个非常简单的方法从Proxy, Mediator, Command和Facade发送Notification，甚至不需要创建一个Notification实例。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>小记：</strong>我对PureMVC的学习实在太浅了，很多都还只停留在认知程度，还没用于实践，当然，实践实践，还是需要时间的~flash还有很多东西要去学，不能一口吃成一个胖子，mvc作为一种编程思想，很考验程序员的逻辑思维，我自认这方面也一般般，总是想东西想到头大:P，嗯，对了，还有一个flash的mvc框架——Robotlegs，机器人双脚，哈~还是要很努力才行，yeah！寒假快到了，工作室又得招收新鲜血液了！我要多多准备，期待下一次真正的团队开发！</p>
+<p><strong>参考资料：</strong></p>
+<ol>
+<li>天地会论坛 rainssong《[心得] PureMVC闲谈》（一）（二）（三）（四）（五）<a href="http://bbs.9ria.com/thread-128680-1-2.html" target="_blank" rel="external">http://bbs.9ria.com/thread-128680-1-2.html</a></li>
+<li><a href="http://baike.baidu.com/view/2044900.htm" target="_blank" rel="external">百度百科</a></li>
+<li>AS3 mvc应用<a href="http://neveras.blog.51cto.com/1122618/255181" target="_blank" rel="external">http://neveras.blog.51cto.com/1122618/255181</a></li>
+<li>官方帮助文档：<a href="http://puremvc.org/" target="_blank" rel="external">http://puremvc.org/</a></li>
+<li>pureMVC四步走：<a href="http://bbs.9ria.com/viewthread.php?tid=58666" target="_blank" rel="external">http://bbs.9ria.com/viewthread.php?tid=58666</a></li>
+<li>pureMVC之helloworld：<a href="http://www.cnblogs.com/yjmyzz/archive/2010/07/27/1786123.html" target="_blank" rel="external">http://www.cnblogs.com/yjmyzz/archive/2010/07/27/1786123.html</a></li>
+</ol>
+<p>&nbsp;</p>
+<blockquote>
+<p>*耦合度：</p>
+<p>软件设计中通常用耦合度和内聚度作为衡量模块独立程度的标准。划分摸块的一个准则就是高内聚低耦合。<br>耦合度是指模块之间联系的紧密程度。<br>模块间的耦合度是指模块之间的依赖关系，包括控制关系、调用关系、数据传递关系。模块间联系越多，其耦合性越强，同时表明其独立性越差。降低模块间的耦合度能减少模块间的影响，防止对某一模块修改所引起的“牵一发动全身”的水波效应，保证系统设计顺利进行。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2012/11/25/flash基础巩固-（2mvc应用/" data-id="cirjs36uv004tso8fqmspui3d" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVC/">MVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PureMVC/">PureMVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础/">基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-flash基础巩固-（1何为mvc？" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2012/11/22/flash基础巩固-（1何为mvc？/" class="article-date">
@@ -594,52 +673,6 @@
     <footer class="article-footer">
       
         <a data-url="http://blog.shengbanx.com/2012/02/24/我发现我真的是喜欢上as3了/" data-id="cirjs36sl001vso8fxbzuiffj" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-军训开始了，时间变少了" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/02/20/军训开始了，时间变少了/" class="article-date">
-  <time datetime="2012-02-20T15:15:51.000Z" itemprop="datePublished">Feb 20 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/02/20/军训开始了，时间变少了/">军训开始了，时间变少了</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>大学为期12天的军训今天开始了，空余时间也就少了，as3学习时间也就少了……只有晚上一丁点时间了，今晚做了一个喷泉，由很多粒子组成的，从下边一点随机上抛运动，粒子下来出边界后去除并重新在原始位置再现，重复。十分有趣。</p>
-<p>时间虽然少，但很充实。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/02/20/军训开始了，时间变少了/" data-id="cirjs36tu003hso8fy4qi33mp" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
