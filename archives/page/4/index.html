@@ -138,6 +138,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-事件调度与事件流" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/05/15/事件调度与事件流/" class="article-date">
+  <time datetime="2013-05-15T02:11:16.000Z" itemprop="datePublished">May 15 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/15/事件调度与事件流/">Actionscript3事件调度与事件流</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在做pulupulu游戏时，我再次研究了下，以前一直没认真搞懂的事件流（Event Flow）。发现以前真的很无知，对于<strong>事件</strong>（Event）。</p>
+<p>首先，AS3中，事件可分为两类：内建事件，它描述运行期环境的状态变化；自定义事件，它描述一个程序的状态变化。内建事件包括用户输入、点击鼠标等事件，而自定义事件则更广泛，可能是一个游戏的开始或一次文本的提交。</p>
+<p>为了处理（Handle)或响应事件，使用事件侦听器（Event Listener）。事件侦听器是一个函数或方法，它注册是为了等待一个事件发生时执行。当一个给定的事件已经发生时为通知一个程序，as执行所有已经注册了该事件的事件侦听器，这个通知过程称为一个<strong>事件调度</strong>（Event DIspatch）。</p>
+<p>当as以一个对象为目标调度一个事件时，如果该对象不是一个显示层次结构的一部分，则那个目标是被通知该事件的唯一对象。相对而言，如果该对象是一个显示层次结构的一部分，则事件对象将会在这个显示列表中“穿行”，直到抵达事件目标，它不仅通知了那个目标同时也通知了一个显示列表的对象。这便是形象的<strong>事件流</strong>（Event Flow）。</p>
+<p>如上所言，事件调度分为三个阶段：捕获阶段（Capture Phase），目标阶段（Target Phase），冒泡阶段（Bubbling Phase）。</p>
+<p>捕获阶段，目标的同显示列表里的元素都会被通知该事件已发生。这是一个向下探的过程，在探到目标之前路过其他东西都会被摸到。</p>
+<p>目标阶段，as通知目标对象该事件发生了。</p>
+<p>对于一些事件*，事件调度到此就结束了。但对于其他事件，将继续前进到第三阶段——</p>
+<p>冒泡阶段，目标的同显示列表的对象被通知该目标已成功接收到事件通知。</p>
+<p><img src="http://help.adobe.com/zh_CN/as3/dev/images/eh_stage_parent_Node.png" alt=""></p>
+<p>似乎只需要捕获及目标阶段就可以了，但既然存在三个阶段，当然是为了适应更多的开发需求。</p>
+<p>三个阶段就如捕鱼的——撒网、捕捉、收网~不同的是这里撒网只为捕捉一条鱼。</p>
+<p>值得注意的是框架Starling的事件没有“捕获”的阶段。这些事件只是简单的被一个对象派发，并可以选择 冒泡。他们不能向相反的方向传递。当派发事件（dispatchEvent）时，即派发事件到所有注册了这个事件类型侦听器的对象。如果一个事件开启了”冒泡”，它会沿着父级关系，一直向上，直到碰到了根节点，或者中间被手动停止它的传递。</p>
+<blockquote>
+<p>*四种事件类型只有一个目标阶段——Event.ACTIVATE、Event.DEACCTIVATE、Event.ENTER_FRAME、Event.RENDER。<br>参考：</p>
+</blockquote>
+<p>[1].事件流<a href="http://help.adobe.com/zh_CN/as3/dev/WS5b3ccc516d4fbf351e63e3d118a9b90204-7e4f.html" target="_blank" rel="external">http://help.adobe.com/zh_CN/as3/dev/WS5b3ccc516d4fbf351e63e3d118a9b90204-7e4f.html</a></p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/05/15/事件调度与事件流/" data-id="cixa7l6ad003kjpfyswvku09v" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ActionScript3/">ActionScript3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Event/">Event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flash/">Flash</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Pulupulu手机游戏开发记录（二）——技术篇" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/05/15/Pulupulu手机游戏开发记录（二）——技术篇/" class="article-date">
@@ -245,7 +307,7 @@ _st = new Starling(Game, stage, viewPort);
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/05/15/Pulupulu手机游戏开发记录（二）——技术篇/" data-id="cirjs36vb005jso8fk3zc84az" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/05/15/Pulupulu手机游戏开发记录（二）——技术篇/" data-id="cixa7l6bl005sjpfyia4dizqu" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -357,7 +419,7 @@ _st = new Starling(Game, stage, viewPort);
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/04/29/pulupulu手机游戏开发记录（一）/" data-id="cirjs36un004jso8fygj7i20g" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/04/29/pulupulu手机游戏开发记录（一）/" data-id="cixa7l6ar004jjpfykgj6ibi2" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -441,7 +503,7 @@ public class Game7 extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/03/18/starling学习笔记（二）/" data-id="cirjs36uc004aso8ft07za8se" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/03/18/starling学习笔记（二）/" data-id="cixa7l6am004ajpfya1qoxm12" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -535,7 +597,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="cirjs36ug004fso8fral8sx1m" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="cixa7l6ao004fjpfyjuddr44j" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -599,7 +661,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="cirjs36ti003cso8f89bseart" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="cixa7l6a8003cjpfyjh1tim1z" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -655,7 +717,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/12/23/air做了个类似猜硬币的东西/" data-id="cirjs36v8005dso8f1578az67" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/12/23/air做了个类似猜硬币的东西/" data-id="cixa7l6bc005gjpfy2ai4u208" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -734,7 +796,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/11/25/flash基础巩固-（2mvc应用/" data-id="cirjs36uv004tso8fqmspui3d" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/11/25/flash基础巩固-（2mvc应用/" data-id="cixa7l6ay004wjpfymbzyr918" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -808,7 +870,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/11/22/flash基础巩固-（1何为mvc？/" data-id="cirjs36uz0051so8fsvi0idlv" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/11/22/flash基础巩固-（1何为mvc？/" data-id="cixa7l6b00054jpfy45ehz4bs" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -859,70 +921,10 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/08/31/记暑假/" data-id="cirjs36rs000mso8f9kopeyu8" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/08/31/记暑假/" data-id="cixa7l68r000mjpfye1xpdftz" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-as3物理引擎！方便好用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/06/26/as3物理引擎！方便好用/" class="article-date">
-  <time datetime="2012-06-25T18:21:35.000Z" itemprop="datePublished">Jun 26 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/06/26/as3物理引擎！方便好用/">AS3物理引擎！方便好用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>还在费心思去模拟物理吗？还在努力思考数学物理公式吗？碰个撞容易吗？弹性、摩擦、重力、碰撞、阻力等等，还在自己思考吗？觉悟吧，少年！用现成的吧。<br>发现了一个较基础的2D物理引擎——APE，还有比较高级的box2d，但APE使用起来更方便！</p>
-</blockquote>
-<p><a href="http://www.cove.org/ape/index.htm" target="_blank" rel="external"><img src="http://ftp142049.host115.web522.com/wp-content/uploads/2012/06/APE-Actionscript-Physics-Engine.png" alt="" title="APE - Actionscript Physics Engine"></a></p>
-<p>&nbsp;</p>
-<p>APE是一个用ActionScript3.0写的 2D物理引擎，用于flash、flex。可以实现了大部分物理模拟，而且它是免费、开源的，遵循MIT协议<span style="color: #888888;">*</span>。</p>
-<p>先到APE物理引擎首页<a href="http://www.cove.org/ape/index.htm" target="_blank" rel="external">http://www.cove.org/ape/index.htm</a> 下载作者的最新版APE</p>
-<p>顺便下个APE中文帮助<a href="http://115.com/file/c2c9ycns" title="猛击下载页面" target="_blank" rel="external">文档</a></p>
-<p>然后你就可以开始你的创作了！</p>
-<p>APE可以做出什么好玩的东西，官方首页上2个demo就很有趣：</p>
-<p><a href="http://www.cove.org/ape/demo1.htm" target="_blank" rel="external">http://www.cove.org/ape/demo1.htm</a></p>
-<p><a href="http://www.cove.org/ape/demo2.htm" target="_blank" rel="external">http://www.cove.org/ape/demo2.htm</a></p>
-<p>&nbsp;</p>
-<blockquote>
-<p><span style="color: #888888;">*MIT许可协议：之名源自麻省理工学院（Massachusetts Institute of Technology, MIT）。内容与三条款BSD许可协议（3-clause BSD license）内容颇为近似，但是赋予软件被授权人更大的权利与更少的限制。作者只想保留版权，而无任何其他的限制。也就是说，你必须在你的发行版里包含原许可协议的声明，无论你是以二进制发布的还是以源代码发布的。</span></p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/06/26/as3物理引擎！方便好用/" data-id="cirjs36v30056so8f5y4lw4by" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APE/">APE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flash/">Flash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/物理引擎/">物理引擎</a></li></ul>
-
     </footer>
   </div>
   
@@ -932,7 +934,7 @@ public class Startup extends Sprite
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/3/">上一页</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/5/">下一页</a>
+      <a class="extend prev" rel="prev" href="/archives/page/3/">上一頁</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/5/">下一頁</a>
     </nav>
   
 </section>

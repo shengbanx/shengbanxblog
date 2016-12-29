@@ -82,7 +82,10 @@ body {
   color: #000;
   background: #fff;
 }
-
+ol,
+ul {
+  list-style: none;
+}
 table {
   border-collapse: separate;
   border-spacing: 0;
