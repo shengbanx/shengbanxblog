@@ -138,6 +138,86 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-尝试基于桌面端的air应用程序开发" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/12/10/尝试基于桌面端的air应用程序开发/" class="article-date">
+  <time datetime="2013-12-10T12:13:25.000Z" itemprop="datePublished">Dec 10 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>►<a class="article-category-link" href="/categories/AS3-0/创作/">创作</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/12/10/尝试基于桌面端的air应用程序开发/">尝试基于桌面端的air应用程序开发</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><p>一直就打算做一个桌面软件来玩玩，自从知道air能够实现之后。这次终于有一次机会了，开发热情立马飙升！</p>
+<p>在10月17号晚的工作室设计交流会上，跟设计师谈到了她很久以前的一个设计一直无人开发，而AIR的种种特性让我有信心开发完成，于是就\<br>接了下来，到周末拿到设计稿后，三个多星期的愉(ku)快(bi)开发过程就此展开了。下面记录一下感想，技术含量不多。(又是一篇流水账= =）</p>
+<p><img src="https://trello-attachments.s3.amazonaws.com/526899a67f73081b27001be1/52689a13874be19a6e0038b9/1cceaa0caebef137badcbae5ded5f281/%E7%95%8C%E9%9D%A2%E9%A2%84%E8%A7%88.jpg" alt="界面设计"></p>
+<h2 id="起始"><a href="#起始" class="headerlink" title="起始"></a><strong>起始</strong></h2><p>这个设计是一个用于学校社团数字中心的一个女生节活动的相片信息管理系统，主要用到列表，数据库操作，文件操作，这些Air都能做到。</p>
+<p>在开始的那个周末，不停尝试，开始是直接将psd导入到flash<br>pro，想着这样开发会不会快捷一点，界面是很容易出来了，但是里面的控件得自己写，爽了一下这个不可操作的软件后，便否定了这个方案。</p>
+<p>后来尝试了下flex开发，用flash<br>builder，但很久没用的原因，在写界面的时候，卡在了一个地方，很难写，也否定了这个方案。</p>
+<p>接着想有什么UI库可以用，便想起了之前没怎么关注的<a href="http://www.mornui.com/" target="_blank" rel="external">MornUI</a>，花了一个下午的时间研究了下MornUI的开发过程，试了一下做界面，发现很简单！超级方便！立刻爱上了MornUI了，但很快便遇到问题了，加了MornUI的官方交流群问，大家都很热情解答~问题很快就解决了。关于MornUI开发过程将在下一篇文章中介绍到。</p>
+<h2 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a><strong>第一周</strong></h2><p>这周开始几天基本上是查阅了AIR开发文档，切图（为适应MornUI开发的特别切图），也没再麻烦设计师了，我自己搞掂了（会ps就是那么简单自信），使用MornUI自带可视化界面编辑工具Morn<br>Builder做界面，项目代码逻辑是在FlashDevelop上写。很快，把一个像样的界面做出来了。（幸福来得那么突然~）</p>
+<p>这周刚好赶上电工实训，闲的时间比较多（把实验要求的任务做完后除了给老师检查基本上是自由时间了），每天都是从宿舍——饭堂——实验楼——综合楼之间往返（走路…），乐在其中，一心只想着这个项目，开发热情空前的高！</p>
+<p>在写完大体的界面后，因为是自定义窗口，相对于使用系统的自带窗口麻烦很多，自适应大小变化、拉伸、窗口按钮（最小化、最大化、关闭）操作都得自己写。</p>
+<p>参考了<a href="http://www.68design.net/Web-Guide/Flash/46381-1.html" target="_blank" rel="external">Air窗口的外观修饰</a>和<a href="http://help.adobe.com/zh_CN/AIR/1.5/devappsflex/WS5b3ccc516d4fbf351e63e3d118666ade46-7e09.html" target="_blank" rel="external">Air开发文档-窗口部分</a>，但还是存在问题，例如最大化、窗口适应大小比那话，不停尝试困扰了一段时间后，就此放弃…</p>
+<p>在基本写完界面，熟悉了MornUI的开发后，在周四就将其pull上github作项目管理与版本控制。这时界面左侧的工具栏按钮有点问题（后来才知道因为图案没设置好是否接受鼠标，遮挡住按钮的获取鼠标），以及中间的列表没写，只有一个大致的界面窗口。</p>
+<p>之后按照项目规划（自己定的），周五先完成drawer控件(切图、在Morn<br>Builder上制作UI），其中MornUI的不熟悉还是遇到了一点问题。</p>
+<p>周六先建立数据库，准备储存新建的信息以及作为list列表的数据。以及数据库操作方法的建立。这里参考了<a href="http://www.ityangba.com/thread-483-1-1.html" target="_blank" rel="external">Adobe<br>AIR中的 SQLite<br>数据库简介</a>和<a href="http://www.ityangba.com/thread-483-1-1.html" target="_blank" rel="external">AIR连接本地数据库的CRUD实例</a>。</p>
+<p>好了，为了写新建信息功能，周日在写drawer新建的表单时遇到坑了，这个表单没有提示信息的方法，得自己写获取焦点、失去焦点的方法。</p>
+<h2 id="第二周"><a href="#第二周" class="headerlink" title="第二周"></a><strong>第二周</strong></h2><p>周一将一个完整的表单（含提示信息功能）写好了之后，周二将数据库再修整完善了一下，周三实现新建信息存入数据库功能，周四写好了list列表，并能接收到数据库的数据。</p>
+<p>之后就是各种完善数据库操作及列表、drawer功能（不熟悉数据库的后果T^T）。</p>
+<p>初次尝试了匹配文件功能进行文件操作，AIr很容易实现。参考：<a href="http://help.adobe.com/zh_CN/AIR/1.5/devappsflex/WS5b3ccc516d4fbf351e63e3d118666ade46-7dbb.html" target="_blank" rel="external">air开发文档</a></p>
+<p>中间少不了一两次写到兴奋处舍不得回宿舍，直接在工作室通宵，天寒地冻的，一件短袖~</p>
+<h2 id="第三周"><a href="#第三周" class="headerlink" title="第三周"></a><strong>第三周</strong></h2><p>第三周因为电工实训结束了，回到了课业苦海中，开发放松了很多，闲暇的将功能写完善，包括drawer的显示详细信息功能、编辑更改原有信息功能、匹配文件功能、搜索功能，大致上就差不多完成全部了。（想象中）</p>
+<h2 id="第四周"><a href="#第四周" class="headerlink" title="第四周"></a><strong>第四周</strong></h2><p>一样由于接近完成，放松了很多，结果，第四周还剩余的两三个模块就是大坑，代码开始偷懒，项目没采用MVC，临时改也花了几天没重构好。</p>
+<p>将剩余的功能完善好，就在周末的女生节活动前各种拼命完善，寻找替代功能，在周五发布软件，icon还是用我做着玩的那个，然后晚上找bug，修bug到天亮（期间还弄了个介绍并提供在线安装的<a href="http://blog.vtmer.com/demo/gims" target="_blank" rel="external">网页</a>…）</p>
+<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a><strong>实际应用</strong></h2><p>还好啦，在11月16日周六早上，看着真正投入使用就像自己孩子出生一样欣慰，但早上使用中反映各种bug（在我电脑上测试时明明没的！），上午再修改了下，中午带着疲惫的双眼到活动摊位玩了一下，看看实际使用中的情况，接着就回去安心地补眠了~</p>
+<p>晚上将剩余的导出表格功能写好，第二天也比较轻松，下午在女生节活动里玩了很久~晚上写数据库合并功能又失败了，后来是采用人工合并的替代方案…</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a><strong>后记</strong></h2><p>我将这次视为封山之作…显然还不算，我的\<br>flash开发还没学到位，编程模式还是渣，基础也不行了。但没办法，紧接着下学期找实习了，flash这块现阶段是基本上找不到好实习的。在做这个air应用的过程中也发现自己的编程短板（难道真的有天赋一说！？），只能转方向了，学的比较杂，但从往至今一直热爱的设计的确是我的一大长项和算是比较有天赋的，一直以来也没停止在设计上的追求。</p>
+<p><strong>一想到往后的日子就要专心于设计了，很舍不得flash和编程…</strong></p>
+<p>感慨一下，flash在几年前有了air之后是多么强大啊！但，现在终究是敌不过退出历史舞台的命运。我想主要一个原因是在10年air刚刚火时大家都没有抓住机会，缺少包括app开发、运营、用户在内的整个生态圈的建立。还有一个原因当然就是adobe公司的策略改变，</p>
+<p>摘一段来自于<a href="http://weibo.com/mu2587" target="_blank" rel="external">@德义flasher木</a>的<a href="http://www.programmer.com.cn/13584/" target="_blank" rel="external">文章</a>：</p>
+<blockquote>
+<p>Flash<br>AIR最开始是Flash对于桌面应用的支持，在移动开发火热之后，AIR开始转变策略，转而为Flash内容的移动App打包进行支持，因为Android设备上允许安装AIR运行时，所以采用AIR打包为Android设备部署。Flash应用就变得顺理成章（虽然和桌面相比，内在运作机制还是很不同的）。当iOS拒绝了Flash Player进入之后，AIR又担负起了将Flash应用部署到iOS设备的重任（因为iOS不允许安装运行时，AIR针对iOS的打包策略和Android设备上又是完全不同的，需要直接编译出本地可执行代码，但为了统一平台起见，仍归属在AIR的范畴之内）。</p>
+<p>现在，Flash<br>AIR的核心策略显然已转变为移动开发，而今年Adobe对AIR的开发支持更是空前的强力。加上Adobe在HTML层面对PhoneGap的投资，可以看出Adobe在移动策略上采用了Adobe AIR（for Flash）和PhoneGap（for HTML、JavaScript Developer）的双保险策略。</p>
+</blockquote>
+<p>但，对于我们这些大学生来说，毕竟专注学习的技术是要用于将来毕业后找工作的，而现阶段许多公司都开始从flash开发转其他开发技术了，也不像从前那么火热了，人员需求的减少就意味着要求更高，基本上都要求有一两年的工作经验，不是吗？能有老手谁还有兴趣带一个刚毕业的新手？</p>
+<p>所以，</p>
+<p>很感谢MornUI带给我三个多星期的愉快开发过程，以及感谢Morn交流群里一群flash开发者带来的欢乐，虽老不正经，但有问问题时就会立即热心地解答，很喜欢这个氛围，也是我唯一一个没有屏蔽的技术交流群…</p>
+<p>嗯，还是很喜欢flash呢~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/12/10/尝试基于桌面端的air应用程序开发/" data-id="ciyyc5t5h002h2xeolttddea4" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GIMS/">GIMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/air/">air</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/创作/">创作</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-博客搬家——也算是个转折点" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/10/24/博客搬家——也算是个转折点/" class="article-date">
@@ -185,7 +265,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/10/24/博客搬家——也算是个转折点/" data-id="cixaqjhbk0034pzfydpo19yos" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/10/24/博客搬家——也算是个转折点/" data-id="ciyyc5t5p00342xeojgj39gah" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -247,7 +327,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/05/15/事件调度与事件流/" data-id="cixaqjhbv003kpzfytbj229iu" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/05/15/事件调度与事件流/" data-id="ciyyc5t5x003k2xeonwmuinht" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -367,7 +447,7 @@ _st = new Starling(Game, stage, viewPort);
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/05/15/Pulupulu手机游戏开发记录（二）——技术篇/" data-id="cixaqjhcz005spzfyv64g1t4g" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/05/15/Pulupulu手机游戏开发记录（二）——技术篇/" data-id="ciyyc5t74005s2xeoyjaaexn9" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -479,7 +559,7 @@ _st = new Starling(Game, stage, viewPort);
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/04/29/pulupulu手机游戏开发记录（一）/" data-id="cixaqjhce004jpzfycxyvoskf" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/04/29/pulupulu手机游戏开发记录（一）/" data-id="ciyyc5t6j004j2xeojmbenwdw" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -563,7 +643,7 @@ public class Game7 extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/03/18/starling学习笔记（二）/" data-id="cixaqjhc6004apzfy9696xhao" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/03/18/starling学习笔记（二）/" data-id="ciyyc5t6c004a2xeojntwiesl" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -657,7 +737,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="cixaqjhca004fpzfyq6dg2b5p" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="ciyyc5t6f004f2xeofe203wke" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -721,7 +801,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="cixaqjhbp003cpzfyd5naoo7v" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="ciyyc5t5t003c2xeoktn2qu9a" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -777,7 +857,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/12/23/air做了个类似猜硬币的东西/" data-id="cixaqjhcs005gpzfy95ag2evl" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/12/23/air做了个类似猜硬币的东西/" data-id="ciyyc5t6w005g2xeo06iii1u3" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -856,7 +936,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/11/25/flash基础巩固-（2mvc应用/" data-id="cixaqjhcm004wpzfyc1skspa2" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/11/25/flash基础巩固-（2mvc应用/" data-id="ciyyc5t6q004w2xeo10h1v7zl" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -869,83 +949,9 @@ public class Startup extends Sprite
 
 
   
-    <article id="post-flash基础巩固-（1何为mvc？" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/11/22/flash基础巩固-（1何为mvc？/" class="article-date">
-  <time datetime="2012-11-22T08:55:01.000Z" itemprop="datePublished">Nov 22 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/11/22/flash基础巩固-（1何为mvc？/">Flash基础巩固-（1)何为MVC？</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>社团忙得很久没去碰flash开发了，满脑子的想法而没时间去实行，这不能不说也是一种失败。</p>
-<p>今天看到一篇文章：“抛弃掉pruemvc吧，flash不适合使用这么死板的东西”，就发现我还不清楚mvc，mvc看过但不知道是什么。于是我就突然有这个一点一滴巩固flash基础的想法。</p>
-<p>从现在起20天系统地巩固一下flash的吧，发现一直是系统基础方面比较薄弱，知识了解总是零零散散的，概念也是模模糊糊的，这又谈何开发。正如设计师一样， 不懂得系统的设计规则，又如何去打破它来创新。</p>
-<p>&nbsp;</p>
-<p><em><span style="color: #000000;">（以下资料打多来自于百度百科，部分来源于论坛）</span></em></p>
-<p><strong>mvc为何？</strong></p>
-<p>MVC (Model View Controller)。M是指数据模型，V是指用户界面，C则是控制器。模型－视图－控制器（MVC）模式是一个有用的工具箱，它有很多好处，但也有一些缺点。</p>
-<p><strong>mvc如何工作？</strong></p>
-<p>MVC是一个设计模式，它强制性的使应用程序的<strong>输入、处理和输出</strong>分开。使用MVC应用程序被分成三个核心部件：<strong>模型、视图、控制器</strong>。它们各自处理自己的任务。</p>
-<p><strong>视图(View)：</strong></p>
-<p>代表用户交互界面，MVC设计模式对于视图的处理是限于视图上数据的采集和处理，以及用户的请求，而不包括在视图上的业务流程的处理。</p>
-<p><strong>模型(Model)：</strong></p>
-<p><strong>1、</strong>企业数据和业务规则。在MVC的三个部件中，模型拥有最多的处理任务。被模型返回的数据是中立的，就是说模型与数据格式无关，这样一个模型能为多个视图提供数据。由于应用于模型的代码只需写一次就可以被多个视图重用，所以减少了代码的重复性。</p>
-<p><strong>2、</strong>业务流程/状态的处理以及业务规则的制定。业务流程的处理过程对其它层来说是黑箱操作，模型接受视图请求的数据，并返回最终的处理结果。业务模型的设计可以说是MVC的核心。</p>
-<p><strong>控制(Controller)：</strong></p>
-<p>可以理解为从用户接收请求, 将模型与视图匹配在一起，共同完成用户的请求，但是它却不做任何的数据处理。</p>
-<p><strong>MVC的优势</strong></p>
-<p>开发人员可以只关注整个结构中的其中某一层，可以很容易的用新的实现来替换原有层次的实现，可以降低层与层之间的依赖，有利于标准化，利于各层逻辑的复用。</p>
-<p>&nbsp;</p>
-<p><strong>btw，关于框架、模式的区别</strong></p>
-<blockquote>
-<p>有很多程序员往往把框架模式和设计模式混淆，认为MVC是一种设计模式。实际上它们完全是不同的概念。</p>
-<p><strong>重用？</strong></p>
-<p>构件通常是代码重用，而设计模式是设计重用，框架则介于两者之间，部分代码重用，部分设计重用，有时分析也可重用。在软件生产中有三种级别的重用：内部重用，即在同一应用中能公共使用的抽象块;代码重用，即将通用模块组合成库或工具集，以便在多个应用和领域都能使用；应用框架的重用，即为专用领域提供通用的或现成的基础结构，以获得最高级别的重用性。</p>
-<p><strong>框架与设计模式？</strong></p>
-<p>框架与设计模式虽然相似，但却有着根本的不同。设计模式是对在某种环境中反复出现的问题以及解决该问题的方案的描述，它比框架更抽象；框架可以用代码表示，也能直接执行或复用，而对模式而言只有实例才能用代码表示;设计模式是比框架更小的元素，一个框架中往往含有一个或多个设计模式，框架总是针对某一特定应用领域，但同一模式却可适用于各种应用。可以说，框架是软件，而设计模式是软件的知识。</p>
-<p><div>         框架模式有哪些？MVC、MTV、MVP等等；</div><br>框架有哪些？C++语言的QT、MFC、gtk，Java语言的SSH，php语言的 smarty(MVC模式)，python语言的django(MTV模式)等等</p>
-<p>设计模式有哪些？工厂模式、适配器模式、策略模式等等</p>
-<p><strong>简而言之：</strong>框架模式是大智慧，用来对软件设计进行分工；设计模式是小技巧，对具体问题提出解决方案，使得代码复用率和耦合度降低。</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/11/22/flash基础巩固-（1何为mvc？/" data-id="cixaqjhco0054pzfyiw8dwtqm" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flash/">Flash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVC/">MVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础/">基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">上一頁</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">下一頁</a>
+      <a class="extend prev" rel="prev" href="/page/3/">上一頁</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">下一頁</a>
     </nav>
   
 </section>
@@ -955,7 +961,7 @@ public class Startup extends Sprite
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 Shengbanx<br>
+      &copy; 2017 Shengbanx<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
