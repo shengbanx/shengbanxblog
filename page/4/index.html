@@ -138,6 +138,76 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Morn-UI使用感受" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/12/29/Morn-UI使用感受/" class="article-date">
+  <time datetime="2013-12-29T14:30:21.000Z" itemprop="datePublished">Dec 29 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/12/29/Morn-UI使用感受/">Morn UI使用感受</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在开发AIR桌面应用GIMS的时候，想起之前在微博上的看到的<a href="http://www.mornui.com/" target="_blank" rel="external">MornUI</a>，于是便开始了接触了这个有爱的MornUI<br><img src="https://trello-attachments.s3.amazonaws.com/526899a67f73081b27001be1/52689a13874be19a6e0038b9/63c790957fdca6b3e23c5d6bada1df35/MornBuilder.jpg" alt="" title="MornBuilder界面截图"></p>
+<hr>
+<p><strong>Morn UI简介</strong><br>Morn UI,是一个flash轻量级，高性能，可视化UI解决方案。它包括了一个Morn<br>UI库和一个搭配的可视化编辑器Morn<br>Builder，下面是官方介绍的优势,基本上都认同：</p>
+<ol>
+<li>轻量级，Morn<br>UI库以精简，直观为设计理念，代码轻量，能快速上手，减少学习成本，Morn<br>UI全部库总大小不到30K</li>
+<li>可视化，Morn<br>UI提供强大的可视化编辑器，布局及属性均可在编辑器直观设置，实现UI和逻辑分离，让美术和程序轻松合作</li>
+<li>高性能，Morn<br>UI设计之初就以高性能为主要目标，以位图为基础，利用延迟渲染机制，实现了高性能</li>
+<li>易扩展，无论UI组件还是编辑器插件，都非常易于扩展，编辑器支持即改即用，轻松实现个性化</li>
+<li>自动资源管理，Morn编辑器自动管理UI资源，以灵活的方式打包资源（jpg+alpha）</li>
+<li>同时支持位图和矢量图，并自动生成UI代码</li>
+<li>支持多项目，支持多视图开发，支持代码视图，支持协同开发及svn管理</li>
+<li>支持多语言，内置语言包管理器及提取工具，快速国际化</li>
+<li>Morn比flex轻量高效，比flash</li>
+</ol>
+<p>新版本已经全面支持移动设备开发了，其作者<a href="http://weibo.com/newyung" target="_blank" rel="external">yungzhu</a>是个热心人（在q群上~），在官博上有<a href="http://blog.mornui.com/?p=563" target="_blank" rel="external">demo</a>和<a href="http://blog.mornui.com/?p=514" target="_blank" rel="external">使用教程</a>，还有<a href="http://www.mornui.com/doc/2.4/" target="_blank" rel="external">在线API文档</a>大概一个下午就能摸熟，上手不难，但一经上手，你就会深深地爱上了它！（这是所有第一次使用的人的共识，但因为Morn</p>
+<h2 id="UI还在不断完善，所以随着深入开发你就会发现其坑之多，且陷入其中，“其乐融融”！）"><a href="#UI还在不断完善，所以随着深入开发你就会发现其坑之多，且陷入其中，“其乐融融”！）" class="headerlink" title="UI还在不断完善，所以随着深入开发你就会发现其坑之多，且陷入其中，“其乐融融”！）"></a>UI还在不断完善，所以随着深入开发你就会发现其坑之多，且陷入其中，“其乐融融”！）</h2><p><strong>使用感受</strong></p>
+<p>首先还是得感谢Morn UI带给我的“愉悦”开发过程（真心的），在近一个月的时间的GIMS开发过程中，按照规划开发一个个功能界面，都能在Morn UI库对应找到相关的组件、相关的函数可供调用。但总有一些时候会发现并没有这个实现方法，所以这个时候你就要到官方Morn交流群（官网有）里大吼一声，刚刚还在相互吹水的各位“大神”就会停下来给你解答，解答有时还会很热心的让你截图一步步找出解决办法，等没问题了，继续吹水~很喜欢这个氛围，虽然大家看起来都老不正经，但确是个热心的交流群（欢迎更多的人加入这个大家庭~）。</p>
+<p>Morn本身UI组件库就封装好了常用的UI组件和其需要用到的功能函数，加上其可视化编辑器，对于UI布局和功能开发真的很方便，下面简单地说几点：</p>
+<ol>
+<li><strong>UI组件切图。</strong>根据各个组件的不同，你需要相应的按照规定格式切出来，并按规定命名，规定格式及命名方式可以下载官方demo上面的UI资源查看或查看官方教程。一般是UI的3个状态（main、hover、pressed）按三等分上下排布，切成png。如button、checkBox、tab。（如下图）<br><img src="https://trello-attachments.s3.amazonaws.com/526899a67f73081b27001be1/52689a13874be19a6e0038b9/c596d9b45a6c3ee21feda68b056af10c/UI%E7%BB%84%E4%BB%B6%E5%88%87%E5%9B%BE.jpg" alt="UI组件切图"></li>
+<li><strong>“写”界面。</strong>直接使用Morn<br>Builder，将切好的UI组件“导入”，通过这个可视化编辑器，根据需要调整相应参数，导出即可生成写好的UI代码。（参照Morn<br>UI教程）</li>
+<li><strong>写功能逻辑代码。</strong>这个我是开始贪快直接将所有功能写在页面的as里（说好的MVC呢），后来到后面发现越来越累赘，想重构成MVC模式的发现很难了T^T。结果导致代码最后达到1000多行…我的错，所以最好在最开始就将该有的相关组件UI、界面分开来（不会的还是参照官方demo源文件）。</li>
+<li><strong>组件功能的不足。</strong>例如，写表单时，表单输入框的文本提示功能是没有的，需要自己写获取焦点失去焦点的提示文本代码。还有在写list时发现，选中操作不好写，List类没提供相关的监听函数，需要自己写。后来发现新版本改进了，但因为已经进行到一半，试了下更新UI库，结果就出问题了，还好git还原回来了。还有其他一些坑，迟些再补充。</li>
+</ol>
+<p>大概这么多，回到期末备考大军中去了，想深入了解Morn<br>UI还是直接看其源代码最快。</p>
+<p>另外还有一篇别人写的不错的<a href="http://bbs.9ria.com/forum.php?mod=viewthread&amp;tid=194517&amp;highlight=morn" target="_blank" rel="external">使用心得</a>，对编辑器原理和界面管理的一些分析,可以看看。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/12/29/Morn-UI使用感受/" data-id="cizuhleed005uk4eoc6iylsrf" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Morn-UI/">Morn UI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/air/">air</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-尝试基于桌面端的air应用程序开发" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/12/10/尝试基于桌面端的air应用程序开发/" class="article-date">
@@ -205,7 +275,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/12/10/尝试基于桌面端的air应用程序开发/" data-id="ciyyc5t5h002h2xeolttddea4" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/12/10/尝试基于桌面端的air应用程序开发/" data-id="cizuhlect002hk4eocvyd1ve8" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -265,7 +335,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/10/24/博客搬家——也算是个转折点/" data-id="ciyyc5t5p00342xeojgj39gah" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/10/24/博客搬家——也算是个转折点/" data-id="cizuhled30034k4eo5n68kn9k" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -327,7 +397,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/05/15/事件调度与事件流/" data-id="ciyyc5t5x003k2xeonwmuinht" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/05/15/事件调度与事件流/" data-id="cizuhledd003kk4eov4wfcq2v" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -447,7 +517,7 @@ _st = new Starling(Game, stage, viewPort);
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/05/15/Pulupulu手机游戏开发记录（二）——技术篇/" data-id="ciyyc5t74005s2xeoyjaaexn9" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/05/15/Pulupulu手机游戏开发记录（二）——技术篇/" data-id="cizuhleec005sk4eo2m0u5ts7" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -559,7 +629,7 @@ _st = new Starling(Game, stage, viewPort);
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/04/29/pulupulu手机游戏开发记录（一）/" data-id="ciyyc5t6j004j2xeojmbenwdw" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/04/29/pulupulu手机游戏开发记录（一）/" data-id="cizuhleds004jk4eozsji3opg" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -643,7 +713,7 @@ public class Game7 extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/03/18/starling学习笔记（二）/" data-id="ciyyc5t6c004a2xeojntwiesl" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/03/18/starling学习笔记（二）/" data-id="cizuhledn004ak4eo85ggvhy6" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -737,7 +807,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="ciyyc5t6f004f2xeofe203wke" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="cizuhledp004fk4eoqg3pwodc" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -801,7 +871,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="ciyyc5t5t003c2xeoktn2qu9a" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="cizuhled8003ck4eoq5roq69k" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -857,7 +927,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/12/23/air做了个类似猜硬币的东西/" data-id="ciyyc5t6w005g2xeo06iii1u3" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/12/23/air做了个类似猜硬币的东西/" data-id="cizuhlee4005gk4eosoleell8" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -870,88 +940,9 @@ public class Startup extends Sprite
 
 
   
-    <article id="post-flash基础巩固-（2mvc应用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/11/25/flash基础巩固-（2mvc应用/" class="article-date">
-  <time datetime="2012-11-25T09:12:21.000Z" itemprop="datePublished">Nov 25 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/11/25/flash基础巩固-（2mvc应用/">Flash基础巩固-（2)MVC应用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>昨天天看到flash开发者大会在上海举行的微博，看到好多技术大牛在分享他们的对flash的见解。AGAL图像处理、AS4明年的到来、Starling框架、Flash RIA技术、away3d、Stage3d、air对blackberry的支持，等等很多都让我感到自己真的好渺小啊，要学的还有很多！加油！</p>
-<p>这两天在了解MVC的应用。感觉mvc是对于一些较大的项目开发比较实用，将程序划分为model、view、control，将有利于对代码的维护、改进，开发起来更加有条理性。model作为模型，创建了程序需要的数据；view视图呈现给用户交互的界面，监听及调用control方法，改变model数据。mvc化能降低程序的耦合度*，使程序模式化。</p>
-<p>其中mvc在flash应用中较出名的就是PureMVC了。</p>
-<p>PureMVC，就如同它的名字是，它是一个纯粹的小巧的MVC框架，支持多语言。其中支持as2、as3。</p>
-<p>PureMVC中还有另外一个单例模式类——Facade，Facade提供了与核心层通信的唯一接口，以简化开发复杂度。</p>
-<p>Facade（观察者）统领着MVC三大结构，可以注册、销毁、查询command、proxy、mediator<br>Command（命令）用以操作接受Notification（通知），然后执行相应的动作<br>Proxy（数据代理）负责提供数据的访问和修改接口，同时随时发布相应的通知告诉外界。<br>Mediator（视图媒介）负责将界面展现出来，提供用户界面等等，它不但可以接收通知，也可以往外发送通知。<br>Notification（通知） 这相当于常用的Event，不过功能更强，用以触发Command或者Mediator的处理。而且因为封装过，不会过多依赖开发语言。</p>
-<p><strong>Model 与 Proxy</strong></p>
-<p>Model保存对Proxy对象的引用，Proxy负责操作数据模型，与远程服务通信存取数据。</p>
-<p>这样保证了Model层的可移植性。</p>
-<p><strong>View 与 Mediator</strong></p>
-<p><div> View保存对Mediator对象的引用。由Mediator对象来操作具体的视图组件（View Component，例如Flex的DataGrid组件），包括：添加事件<strong><strong>*</strong></strong>，发送或接收Notification ，直接改变视图组件的状态。</div></p>
-<p><div> 这样做实现了把视图和控制它的逻辑分离开来。</div><br><strong>Controller 与 Command</strong></p>
-<p><div> Controller保存所有Command的映射。Command类是无状态的，只在需要时才被创建。</div><br>Command可以获取Proxy对象并与之交互，发送Notification，执行其他的Command。经常用于复杂的或系统范围的操作，如应用程序的“启动”和“关闭”。应用程序的业务逻辑应该在这里实现。</p>
-<p><strong>Facade 与 Core</strong></p>
-<p><div> Facade类应用单例模式，它负责初始化核心层（Model，View和Controller），并能访问它们的Public方法。</div></p>
-<p><div> 这样，在实际的应用中，你只需继承Facade类创建一个具体的Facade类就可以实现整个MVC模式，并不需要在代码中导入编写Model，View和Controller类。</div><br>Proxy、Mediator和Command就可以通过创建的Facade类来相互访问通信。</p>
-<p><strong>Observer 与 Notification</strong></p>
-<p>PureMVC的通信并不采用Flash的EventDispatcher/Event，因为PureMVC可能运行在没有Flash Event和EventDispatcher类的环境中，它的通信是使用观察者模式以一种松耦合的方式来实现的。你可以不用关心PureMVC的Observer/Notification机制是怎么实现的，它已经在框架内部实现了。你只需要使用一个非常简单的方法从Proxy, Mediator, Command和Facade发送Notification，甚至不需要创建一个Notification实例。</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p><strong>小记：</strong>我对PureMVC的学习实在太浅了，很多都还只停留在认知程度，还没用于实践，当然，实践实践，还是需要时间的~flash还有很多东西要去学，不能一口吃成一个胖子，mvc作为一种编程思想，很考验程序员的逻辑思维，我自认这方面也一般般，总是想东西想到头大:P，嗯，对了，还有一个flash的mvc框架——Robotlegs，机器人双脚，哈~还是要很努力才行，yeah！寒假快到了，工作室又得招收新鲜血液了！我要多多准备，期待下一次真正的团队开发！</p>
-<p><strong>参考资料：</strong></p>
-<ol>
-<li>天地会论坛 rainssong《[心得] PureMVC闲谈》（一）（二）（三）（四）（五）<a href="http://bbs.9ria.com/thread-128680-1-2.html" target="_blank" rel="external">http://bbs.9ria.com/thread-128680-1-2.html</a></li>
-<li><a href="http://baike.baidu.com/view/2044900.htm" target="_blank" rel="external">百度百科</a></li>
-<li>AS3 mvc应用<a href="http://neveras.blog.51cto.com/1122618/255181" target="_blank" rel="external">http://neveras.blog.51cto.com/1122618/255181</a></li>
-<li>官方帮助文档：<a href="http://puremvc.org/" target="_blank" rel="external">http://puremvc.org/</a></li>
-<li>pureMVC四步走：<a href="http://bbs.9ria.com/viewthread.php?tid=58666" target="_blank" rel="external">http://bbs.9ria.com/viewthread.php?tid=58666</a></li>
-<li>pureMVC之helloworld：<a href="http://www.cnblogs.com/yjmyzz/archive/2010/07/27/1786123.html" target="_blank" rel="external">http://www.cnblogs.com/yjmyzz/archive/2010/07/27/1786123.html</a></li>
-</ol>
-<p>&nbsp;</p>
-<blockquote>
-<p>*耦合度：</p>
-<p>软件设计中通常用耦合度和内聚度作为衡量模块独立程度的标准。划分摸块的一个准则就是高内聚低耦合。<br>耦合度是指模块之间联系的紧密程度。<br>模块间的耦合度是指模块之间的依赖关系，包括控制关系、调用关系、数据传递关系。模块间联系越多，其耦合性越强，同时表明其独立性越差。降低模块间的耦合度能减少模块间的影响，防止对某一模块修改所引起的“牵一发动全身”的水波效应，保证系统设计顺利进行。</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/11/25/flash基础巩固-（2mvc应用/" data-id="ciyyc5t6q004w2xeo10h1v7zl" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVC/">MVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PureMVC/">PureMVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础/">基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">上一頁</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">下一頁</a>
+      <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
     </nav>
   
 </section>
