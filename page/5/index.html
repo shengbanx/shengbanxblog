@@ -138,6 +138,92 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-starling学习笔记（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/18/starling学习笔记（二）/" class="article-date">
+  <time datetime="2013-03-18T08:14:12.000Z" itemprop="datePublished">Mar 18 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/18/starling学习笔记（二）/">Starling学习笔记（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在官网可以知道，Starling是<a href="http://gamua.com/sparrow/" target="_blank" rel="external">Sparrow</a> 框架在ActionScript3领域的一个姐妹框架。基于stage3D的API开发，而Stage3D有能力去控制 OpenGL、DirectX这些电脑显卡驱动或OpenGL ES2这些手机显卡驱动，最终由这些显卡驱动程序去驱动GPU工作。也就是传说中的GPU显卡加速。</p>
+<p>就有人会疑惑了，stage3D不是渲染3D内容的吗？为何用来做2D。这里用我们该如何使用Stage3D中的drawTriangles这个API来绘制类似MovieClip来解释。GPU的优势在于它绘制三角形极其高效，所以使用drawTriangles API将绘制出两个三角形，之后我们再从一个纹理（texture，你可以理解成“素材”的意思）上面采样（或取色）并使用一种称为UV映射*的机制来着色于这两个三角形上即可，最后我们将能够得到一个纹理化（textured，即着了色的）的方块，我们就用它来作为我们Sprite对象的外观。若是在每一帧都改变其纹理，我们就可以得到一个MovieClip对象了。</p>
+<p>&nbsp;</p>
+<blockquote>
+<p>*<a href="http://help.adobe.com/zh_CN/ActionScript/3.0_ProgrammingAS3/WS509D19BB-239B-4489-B965-844DDA611AE7.html" target="_blank" rel="external">UV 映射</a>是一种纹理化对象的方法。它依赖于两个值：U 水平 (x) 值和 V 垂直 (y) 值。这两个值不是基于像素值，而是基于百分比。0 U 和 0 V 表示图像的坐上角，1 U 和 1 V 表示右下角<br>&nbsp;</p>
+</blockquote>
+<p>那么，现在开始创建舞台元素玩玩了，如上一篇所讲，首先是创建启动类，然后在Game类中创建一个显示对象，建什么好呢？不妨查查API，starling.display，有Button、Image、MovieClip、Quad（四边形）以及其他一些容器。这里，我们创建一个button玩玩。</p>
+<blockquote>
+<p>Button:</p>
+<p>一个简单的按钮由一张图片和一个可选的文本组成。</p>
+<p>你可以分别为按钮构造函数传递up和down两种状态的纹理。 如果你没有指定一个down状态的纹理，按钮会采用默认的办法：被触碰的时候缩小一点。 此外，你可以在按钮上覆盖一个文本，要自定义这个文本，只需要提供和原来的基本相同的文本框即可。 你可以使用<code>textBounds</code>属性，将文本移动到一个指定的位置。</p>
+<p>判断按钮是否被触碰，请使用<code>triggered</code>事件类型， 用这个事件来代替普通的触碰事件。也就是说，用户只要在松开手指或者鼠标之前，移动手指/鼠标离开按钮区域，就可以取消对该按钮的点击操作。<br>&nbsp;</p>
+<p><pre class="brush:as3">package<br>{<br>    import starling.display.Button;<br>    import starling.display.Sprite;<br>    import starling.textures.Texture;</pre></p>
+</blockquote>
+<pre><code>/**
+ * ...
+ * @author SHENGbanX
+ */
+public class Game7 extends Sprite
+{
+    [Embed(source = &quot;../assets/chicken.png&quot;)]
+    private static const Chicken:Class;
+    public function Game7()
+    {
+                    //通过Texture类中的静态方法fromBitmap来创建Texture纹理对象
+        var buttonTexture:Texture = Texture.fromBitmap(new Chicken());
+        var button:Button = new Button(buttonTexture, &quot;Hello Starling&quot;);
+        button.x = 200;
+        button.y = 200;
+                    addChild(button);
+    }
+
+}
+</code></pre><p>}<br>自己用ps简单地画了一个小鸡作为按钮的图片纹理，加上文字。但这样文字刚好在图片上，所以要用<code>textBounds</code>属性，把文字移到一个地方。</p>
+<p>查api可知textBounds:Rectangle，Rectangle是flash.geom包（包中包含几何图形类（如点、矩形和转换矩阵）以支持 BitmapData 类和位图缓存功能。）里的一个类。</p>
+<p>而Rectangle 对象是按其位置（由它左上角的点 (x, y) 确定）以及宽度和高度定义的区域。</p>
+<p>加上button.textBounds = (0,50,100,100);</p>
+<p>但报错了，类型不对，Rectangle不是就4个数作属性吗？思来想去，还是去看看starling的源代码：</p>
+<p><pre class="brush:as3">        /<em>* The bounds of the textfield on the button. Allows moving the text to a custom position. </em>/<br>        public function get textBounds():Rectangle { return mTextBounds.clone(); }<br>        public function set textBounds(value:Rectangle):void<br>        {<br>            mTextBounds = value.clone();<br>            createTextField();<br>        }</pre><br>仔细研究了一下，发现还是应该是那样没错的，试了很多种方法，通过trace(button.textBounds)结果是(x=0, y=0, w=73, h=53),以这个做值或(x=0, y=0, width=73, height=53)也不行。</p>
+<p>最后这样才可以：</p>
+<p><pre class="brush:as3">button.textBounds = new Rectangle(0, 50, 73,53);</pre><br>&nbsp;</p>
+<p><strong>没有教程的时候，查API、源码等方法自己研究还是很不错的！学习Starling更需如此。</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/03/18/starling学习笔记（二）/" data-id="cj2tmkec4004ak2eofxf0tlm8" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AS3/">AS3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Starling/">Starling</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-starling学习笔记（一）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/03/10/starling学习笔记（一）/" class="article-date">
@@ -219,7 +305,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="cj1cbruld004fcufys2i5xs4w" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="cj2tmkec7004fk2eodzew6eyz" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -283,7 +369,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="cj1cbrukv003ccufyltrfbnx1" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="cj2tmkebn003ck2eoyt41278d" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -339,7 +425,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/12/23/air做了个类似猜硬币的东西/" data-id="cj1cbrulw005gcufyete89flq" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/12/23/air做了个类似猜硬币的东西/" data-id="cj2tmkect005gk2eo0j6arnmt" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -418,7 +504,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/11/25/flash基础巩固-（2mvc应用/" data-id="cj1cbrulp004wcufyn7pnb22e" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/11/25/flash基础巩固-（2mvc应用/" data-id="cj2tmkeci004wk2eowpw47tii" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -492,7 +578,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/11/22/flash基础巩固-（1何为mvc？/" data-id="cj1cbrulr0054cufybbg70ja9" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/11/22/flash基础巩固-（1何为mvc？/" data-id="cj2tmkecl0054k2eo0ruxv596" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -543,7 +629,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/08/31/记暑假/" data-id="cj1cbruiw000mcufy9f29ehrw" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/08/31/记暑假/" data-id="cj2tmke9r000mk2eomb5lbilf" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -601,7 +687,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/06/26/as3物理引擎！方便好用/" data-id="cj1cbrulu0059cufy4pbui1vj" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/06/26/as3物理引擎！方便好用/" data-id="cj2tmkecp0059k2eoeoqdavhk" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -652,7 +738,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/06/15/维生数工作室，我的体会/" data-id="cj1cbruiy000ocufyjdx24ngy" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/06/15/维生数工作室，我的体会/" data-id="cj2tmke9u000ok2eo1yij9hn1" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -699,7 +785,7 @@ public class Startup extends Sprite
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://blog.shengbanx.com/2012/04/26/开始学习flex开发！/" data-id="cj1cbruka0029cufy0t3fe9zl" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://blog.shengbanx.com/2012/04/26/开始学习flex开发！/" data-id="cj2tmkeb50029k2eordbjqgge" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -712,54 +798,9 @@ public class Startup extends Sprite
 
 
   
-    <article id="post-各种忙" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/03/29/各种忙/" class="article-date">
-  <time datetime="2012-03-29T11:08:03.000Z" itemprop="datePublished">Mar 29 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/03/29/各种忙/">各种忙</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前段时间社团部门各种忙，现在终于都忙完了，20天没碰as3了。也没写博客了， 几乎天天晚上都忙到1、2点。做不完的海报，传单，各部门之间的联系又烂，什么都没整理好就让我做海报……</p>
-<p>哎，现在终于可以好好学代码了，再学flex开发，去图书馆借了几本书，感觉flex开发挺有趣，貌似音乐播放器、浏览器等软件都能开发，真想学会。</p>
-<p>清明之后还要参加水火箭比赛，和一个模型去参赛，估计又得忙一阵了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/03/29/各种忙/" data-id="cj1cbrukn002zcufy6956ass3" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/4/">上一頁</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">下一頁</a>
     </nav>
   
 </section>
