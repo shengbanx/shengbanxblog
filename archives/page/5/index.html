@@ -138,6 +138,118 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-pulupulu手机游戏开发记录（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/29/pulupulu手机游戏开发记录（一）/" class="article-date">
+  <time datetime="2013-04-28T17:37:56.000Z" itemprop="datePublished">Apr 29 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/创作/">创作</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/29/pulupulu手机游戏开发记录（一）/">Pulupulu手机游戏开发记录（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于这两年来flash开发界的变化较大，html5时代的来临，让工作室Flash组面临着没有什么项目可做的困境，工作室flash组还是否需要存在?这个问题也让我这个flash组组长感到困扰。</p>
+<p>当然我是喜欢flash的，也坚信flash的优势。于是，在我这届，我决定改变flash组的方向，由原本的前端开发转变为现在的前端+移动端开发，并且应用范围也由原来的web动态效果转变为现在的web应用及游戏开发。这样以适应如今flash开发界的趋势。</p>
+<p>于是，便有了这个pulupulu这个手机游戏项目。项目开始到现在已有一个月了，终于在今天做出了beta 0.1版本，但只是一个demo。这里做一下这一个月来的开发记录，也算是一个中期经验总结吧。</p>
+<blockquote>
+<h1 id="Pulupulu"><a href="#Pulupulu" class="headerlink" title="Pulupulu"></a><a href="http://github.com/vtmer/pulupulu" target="_blank" rel="external"><img src="https://camo.githubusercontent.com/50f248402f9ab87dde401ff1d869376989151f3d/687474703a2f2f692e696d6775722e636f6d2f754474536933612e706e67" alt="Icon"></a>Pulupulu</h1><hr>
+<h4 id="游戏策划"><a href="#游戏策划" class="headerlink" title="游戏策划"></a>游戏策划</h4><ul>
+<li>主题：在天朝吃东西，难免食后腹泻肚痛，特殊情况不能上厕所，想放屁？难受难忍，那就尽情地放吧！</li>
+<li>背景：课堂上突然肚痛想放屁，却不能，苦逼，于是思绪yy飞出向上飞，吃番薯储存“屁能”，用来释放屁。途中捡道具、捡厕纸，收集黑宝石（打开异次元空间解决生理问题），收集厕纸可提高分数、买东西、提升技能等。直到飞到终点：梦想的厕所！</li>
+<li>玩法：触摸放屁，放屁产生反冲力向上飞，重力左右控制。</li>
+<li>道具：有番薯、辣椒、小鸟、厕纸、黑宝石等。</li>
+<li>输赢机制：高低决定分数，掉到屏幕底线以下且黑宝石数为零则输；</li>
+<li>设计风格：预期是找你妹的猎奇猥琐风格，但还是美工说的“画出什么就什么啦”。</li>
+</ul>
+<hr>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ol>
+<li>风格和谐，口味略重，关于放屁的游戏。</li>
+<li>玩法简单，轻松休闲。</li>
+<li>利用道具技能升级，人物换装，具有挑战性。</li>
+<li>不同的食物会有不同颜色的屁，传说能放出彩虹屁。</li>
+<li>工科男放屁是一门艺术，当达到一定的境界就能放出诸如N阶矩阵屁、向量屁、地图屁（参照地图炮）、三次元屁（相对于二次元）等。</li>
+<li>结合中国传统文化，诸如周易、道家、儒学等。</li>
+<li>……</li>
+</ol>
+<hr>
+<h4 id="开发细则"><a href="#开发细则" class="headerlink" title="开发细则"></a>开发细则</h4><ol>
+<li>使用Actionscript3开发，结合<a href="http://gamua.com/starling/" title="Starling框架" target="_blank" rel="external">Starling</a>框架以及<a href="http://dragonbones.github.io/" title="DragonBones" target="_blank" rel="external">DragonBones</a>骨骼方案</li>
+<li>Adobe Air跨平台开发（android,ios,rim)</li>
+<li>使用Flash Develop开发工具<br>3月27日，我正式提出了要做手机游戏这个想法，在此前我用了4周时间学习starling框架，并研究了一些游戏、手游的架构、策划、制作等知识，就等技术自认为差不多成熟的时候我提出了这想法。我当时就打算我只写程序，把美工、设计让出来，虽然我感觉自己能胜任，但一方面要形成团队合作的氛围，另一方面在手游设计上要锻炼一下工作室大一的同学。</li>
+</ol>
+</blockquote>
+<p>当天晚上，我召集了对我这个手游感兴趣的平面组大一的3个组员，在工作室讨论了游戏的整体策划及简单架构，人员的确立与相关的工作计划。</p>
+<p>策划：ck、bobo、程序：我、设计：ck、美工：LinkYano，当然，项目总监就是我啦~。</p>
+<blockquote>
+<p>这是工作室第一次做手游，毫无经验，计划做个玩法简单点的手机游戏，并进行“微创新”。即：简单而不简单。并实现跨平台（pc+android+ios）。<br><strong>第一周，</strong>我主要还是边学习边研究，并统筹整个项目的任务分配。并让flash组大一的ms加入，我带带他，且先让他熟悉一下starling框架。</p>
+</blockquote>
+<p>3月28日，想好代码实现的整体思路；为整个项目设定设计规范，以适应各分辨率尺寸屏幕，这里我决定以720*1280屏幕大小进行设计。</p>
+<p>3月29日，考虑如何适应各种分辨率屏幕，适应分辨率参考<a href="http://www.starlinglib.com/wiki/StarlingManual:%E5%A4%9A%E5%B1%8F%E5%B9%95%E5%88%86%E8%BE%A8%E7%8E%87%E7%9A%84%E5%BC%80%E5%8F%91" target="_blank" rel="external">StarlingManual:多屏幕分辨率的开发</a>，通过拉伸来适应屏幕大小。</p>
+<p>3月30日，出奇的LinkYano妹子竟然熬夜把美工稿弄出来了，不得不说，当早上看到这个稿时充满喜感~~</p>
+<p>4月2日，在我的建议下LinkYano出了改稿，这猥琐的小鸟我喜欢~</p>
+<p><img src="https://trello-attachments.s3.amazonaws.com/5151c6f59169b08f2b001f3d/51530ca1622b8a463b0041af/9bd912849e638fd1b0cb0c4468009202/PILUPULU.jpg" alt="美工第二稿"></p>
+<p>4月3日，清明放假了，放3天假，我没带电脑回去，因为我知道在家是做不了什么的，果然，3天各个都几乎没有进度。值得一提的是LinkYano美工有继续加了些道具。</p>
+<p>&nbsp;</p>
+<p><strong>第二周，</strong>没有UI单单测试代码是十分无趣的，在我一催再催之下，ck终于出了UI稿了，泪流满面的同时，开始正式写程序了。</p>
+<p>4月9日，游戏首页的UI初稿出来了，欣喜之下提出了一些意见。并于次日修改了。</p>
+<p><img src="http://7bv7sz.com1.z0.glb.clouddn.com/blog%2Fimage%2Fpulupulu2.jpg" alt="首页改稿"></p>
+<p>4月11日，我开始切图写游戏界面。</p>
+<p>4月13日，完成了游戏首页、游戏进行界面、暂停界面，并实现了之间的切换。</p>
+<p>4月14日，开始写游戏进行程序。完成了触摸控制飞跃和重力感应控制人物左右移动。LinkYano把icon画好了。</p>
+<p><strong>第三周，</strong>这周我由于周五考试要复习，就放下了这个游戏5天，转交给ms继续并指导一下他。</p>
+<p>4月15日，交代ms工作和确立编码规范。并指导其熟悉开发工具的使用。</p>
+<p>4月20日，ms此前是没什么进展的，只是熟悉了一下我写的代码。晚上我确立了一下分工，并将ms”扶上岗“开始工作，解决了边界处理的bug。</p>
+<p>&nbsp;</p>
+<p><strong>第四周，</strong>状态全开写游戏进行程序。</p>
+<p>4月22日，写完了“放屁”功能。</p>
+<p>4月24日，修改了触摸控制的方法，让触摸不那么灵敏。并写完了道具设置，分数显示。</p>
+<p>4月26日，完成了道具碰撞，ms完成了能量条动画的控制。</p>
+<p>4月27日，我进行了代码整合，并优化了一些控制显示，以及修复一些bug。游戏到此为止终于可以玩了。</p>
+<p>4月28日，加入键盘控制，pc端可玩，修复了一些bug，修改了难度，此时游戏版本beta 0.1。</p>
+<p>&nbsp;</p>
+<p>要感谢<a href="https://trello.com" title="trello" target="_blank" rel="external">trello</a>，进行这个项目的管理，并让我有机会作这样的流水账记录:)</p>
+<p>五一放假了，暂时告一段落。虽然中途有点坑，但我还是依然坚持。即使每天做这个东西的时间不多，中间还缺了一个星期，还有上星期4月21日老师要做个视频，被Ae搞烦了几天，最后跟老师说实在完不成，然后开心地全身心转战这游戏。这个星期，相当努力。几乎全身心都放在这个游戏上了。尤其写拾取道具的碰撞检测方法时，从下午2点到晚上11点，由于尝试starling的碰撞方法出现种种问题，几近崩溃。但在最后终于写好的时候几乎热泪盈眶了。</p>
+<p>这个项目是我负责的，对于大一各位的表现值得表扬，虽然他们当时答应下来只是随随便便地。LinkYano妹子最赞了，美工稿出得快，连icon也一教就会。还有ms虽然刚接触AS3没多长时间，但进步却是很快的，相信接下来能够帮上较大的忙~</p>
+<p>编程效率是个问题，我觉得自己是渣渣的，但有时状态一来就很快很高效。我认为编程速度更多的取决于你的思维逻辑，以及知识的积累。这点我体会很深。</p>
+<p>这项目到此，并不是结束，后续迭代以及进一步详细策划、修改优化UI设计的工作还等着我们，我们还要继续努力！</p>
+<p>&nbsp;</p>
+<hr>
+<p>Github地址：<a href="https://github.com/vtmer/pulupulu" target="_blank" rel="external">https://github.com/vtmer/pulupulu</a></p>
+<p>测试版，试玩慎重：</p>
+<p>android：<a href="http://pan.baidu.com/share/link?shareid=513486&amp;uk=3925949692" title="http://pan.baidu.com/share/link?shareid=513486&amp;uk=3925949692" target="_blank" rel="external">pan.baidu.com/share/link?shareid=513486&amp;uk=3925949692</a></p>
+<p>ios：<a href="http://pan.baidu.com/share/link?shareid=513016&amp;uk=3925949692" title="http://pan.baidu.com/share/link?shareid=513016&amp;uk=3925949692" target="_blank" rel="external">pan.baidu.com/share/link?shareid=513016&amp;uk=3925949692</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/04/29/pulupulu手机游戏开发记录（一）/" data-id="cj2tmkeca004jk2eogumbukl0" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-starling学习笔记（二）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/03/18/starling学习笔记（二）/" class="article-date">
@@ -749,58 +861,9 @@ public class Startup extends Sprite
 
 
   
-    <article id="post-开始学习flex开发！" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/04/26/开始学习flex开发！/" class="article-date">
-  <time datetime="2012-04-26T13:45:31.000Z" itemprop="datePublished">Apr 26 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/04/26/开始学习flex开发！/">开始学习Flex开发！</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>RIA，也就是Rich Internet Application(富互联网应用程序)。RIA指新一代web应用。</p>
-<p><a href="http://ftp142049.host115.web522.com/wp-content/uploads/2012/04/b5ce9254c774dc263b293570.jpg" target="_blank" rel="external"><img src="http://ftp142049.host115.web522.com/wp-content/uploads/2012/04/b5ce9254c774dc263b293570-300x224.jpg" alt="" title="b5ce9254c774dc263b293570"></a></p>
-<p>Adobe Flash Builder 4,也就是最新一代的flex版本，今天试着用了一下，发现很强大，那功能。</p>
-<p>其实刚开始接触到这方面的概念时，我是想用Flex开发软件用的，因为学习flash as3这么长一段时间了，发现as3除了做一些特效，游戏、网络应用等，很少其他用处，而且逐渐地，有被html5强大的功能取代的趋势。（发现有很多html5做的游戏，不错，不过html5还是无法克服其占用内存太多，运行慢的缺点，做不了大游戏）所以，当知道有flex这东西的时候，我就开始很感兴趣了，开始迷上了RIA这个词，这是一个很棒的词，至少我觉得。我想用As3来开发软件，我从小就想开发自己的软件了，想想，别人都用着自己开发的软件的时候，那是多么得自豪。哈哈，想多了，才刚接触就想这么远的事，有什么用，赶紧学习，学会怎么做吧。</p>
-<p>话说，工大在线要改版了，再过两个星期。然后，flash组要讨论一下用FB把工大在线推出一个移动客户端。也就是在安卓等智能机上的应用，不知道可不可行，我才初学，压力山大啊。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/04/26/开始学习flex开发！/" data-id="cj2tmkeb50029k2eordbjqgge" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flex/">Flex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/4/">上一頁</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><a class="extend next" rel="next" href="/archives/page/6/">下一頁</a>
+      <a class="extend prev" rel="prev" href="/archives/page/4/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><a class="extend next" rel="next" href="/archives/page/6/">下一页</a>
     </nav>
   
 </section>
