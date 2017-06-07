@@ -138,6 +138,84 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Facebook calling- thoughts on feedback design" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/02/Facebook calling- thoughts on feedback design/" class="article-date">
+  <time datetime="2016-07-02T14:14:12.000Z" itemprop="datePublished">Jul 2 2016</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Translation/">Translation</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/02/Facebook calling- thoughts on feedback design/">Facebook通话：评级反馈的设计思考</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://shengbanx.qiniudn.com/blog/files/1-RdTZk-8OSY-YGgACbc5eIA.jpeg" alt=""></p>
+<p>许多App都会有一个对商户/菜品/车主/使用过程进行打分的评级反馈功能模块。Facebook出品的Messenger应用中的通话功能也不例外。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>每次在Messenger（Facebook App）上通话过后，都会弹出个浮层提示为这次通话质量进行打分。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/1-AQz3z1-k3mds4LvtR54T0w.png" alt="反馈浮层"></p>
+<p>在结束时进行通话质量反馈，的确可以提升通话质量。但我发现在大多数情况下，我并不会去选择评级反馈，这值得思考。</p>
+<p>所以，我决定分析下这个流程。并分享出来，大家一同参详。</p>
+<p>Messenger现在的通话评级流程是这样的。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/1-vpAiqL0PJyWheJpx_XlOrA.gif" alt="Messenger当前的通话评级流程"></p>
+<h3 id="为什么？"><a href="#为什么？" class="headerlink" title="为什么？"></a>为什么？</h3><p>为什么说Messenger的评级反馈流程使用起来一点都不流畅呢？</p>
+<p><strong>90%的人是很忙的。</strong><br><strong>闲人当中90%是懒的。</strong></p>
+<p>大部分情况下，刚打完电话后的人一定会十分匆忙，要么回到刚离开去听电话的地方，要么再打下一个电话。会有一种紧迫感让用户想尽快结束当前的事情，反馈弹窗在这种紧迫感下就会让用户变得十分抗拒。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/1-r3pxyelPgEyxemH-uSZOXA.jpeg" alt="当前评级反馈流程的两张截图"></p>
+<ol>
+<li>视觉上在最顶层凸显动作是“NOT NOW（暂不）”按钮。</li>
+<li>完成这个交互流程用户需要点击星星（1次）然后“提交”（2次）。也许2次点击也并不是太过复杂？额…然后你会发现下一张截图的情形。</li>
+<li>用户评完星级后，会看到三个相同颜色的可点击的地方，并没有视觉层次区分。</li>
+</ol>
+<p>记得即使我在完成星级评价后也点击过很多次“NOT NOW（暂不）”按钮。就是因为当时有很着急的事情等着我，十分匆忙，来不及思考。</p>
+<p>当前方案：<br>完成评级的点击次数——2<br>不进行评级的点击次数——1</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>如果退出当前对话框的最小点击数是1，那么为何不将其和评价星级的点击合在一起呢？</p>
+<p>结合上面的问题，我这样设计这个流程：</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/1-Z_YXxKEXL7H_A0j0cbWFaQ.gif" alt="重新设计的方案"></p>
+<ol>
+<li>没有“暂不”按钮。只有一个较不明显的“×” icon作为关闭按钮。</li>
+<li>视觉上突出评价星级的区域。</li>
+<li>没有提交按钮，在点击完星级区域后自动提交并结束这次反馈。</li>
+</ol>
+<p>新方案：<br>完成评级的点击次数——1<br>不进行评级的点击次数——1</p>
+<p>PS：有很多种方法可以解决这个问题。我只不过是提出了其中的一种。<br>PSS：经许多读者提议，我后来用取消按钮替代了上面的“×” icon，更加合适。感谢大家 : ) </p>
+<blockquote>
+<p>​本文由shengbanx翻译整理，原文版权归属原作者所有<br>转载须注明来源及以下信息：</p>
+<p>原文发表于Medium  16年6月23日<br>《<a href="https://uxdesign.cc/how-bad-hierarchy-might-be-affecting-facebook-messengers-feedback-conversions-fe3b61d5b1d5#.lg5zrm1nc" target="_blank" rel="external">Facebook calling: thoughts on feedback design</a>》<br>by Ram Sunkara</p>
+<p>shengbanx 译</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2016/07/02/Facebook calling- thoughts on feedback design/" data-id="cj37h8sv1006c2rfyrsffr0cu" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design/">design</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Designernews2016-6" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/07/01/Designernews2016-6/" class="article-date">
@@ -811,76 +889,6 @@
     <footer class="article-footer">
       
         <a data-url="http://blog.shengbanx.com/2014/10/10/设计师技能树v0.1/" data-id="cj37h8sqx000j2rfydaz680h7" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design/">design</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-设计师，处女心" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/10/08/设计师，处女心/" class="article-date">
-  <time datetime="2014-10-08T12:24:12.000Z" itemprop="datePublished">Oct 8 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/08/设计师，处女心/">设计师，处女心</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有这么一个段子：</p>
-<p>现在的小姑凉啊，在微博朋友圈写点自己和男生那些事，男生也不叫男生，全是“金牛男”、“天蝎男”、“射手男”，整得跟圣斗士勇闯黄金十二宫似的。还说这样方便快速定位形象。怎么能这样！那么我就要问了，学挖掘机到底哪家强……(中毒已深= =）</p>
-<p>发现女生都喜欢看星座。嗯，即使在互联网圈子，处女座设计师也是常黑的对象。</p>
-<p>加上之前在看到的这篇<a href="http://www.ui.cn/project.php?id=27261" target="_blank" rel="external">“处女座设计师的一封信”</a>,让我想起了处女座和设计师的“不解之缘”：似乎很多设计师都是处女座啊。</p>
-<p>小时候吃大碗的炒饭的时候，我会用调羹压实那些饭，从一侧挖到底，慢慢挖着吃，比砌墙还平整，觉得很好玩从不觉得有什么奇怪。直到前段时间和朋友出来吃个芝士焗饭，自自然然地这样吃着，并没觉得奇怪。但和朋友聊着设计的事情，聊着聊着发现自己终于做了一回处女座应该做的事了/哭。</p>
-<p>对处女座的评价一般都是“追求完美”、“洁癖”，而我从小就是随和，桌柜里永远是很凌乱的，找个试卷找半天的那种。</p>
-<p>虽然我的书桌里面试凌乱的，但是书桌上摆着的书，书脊一定要对齐的，有一本突出来我也要弄一下。那时看来似乎大家都这样，爱整洁嘛，嘛，嘛……只是我刚好是处女座而已。</p>
-<p>小时候，绑个鞋带绑半天被老妈说了很多次，画画的时候常常是老画不出自己想要的那种橡皮擦，擦擦擦。追求削苹果皮不要断，核桃弄开取出完整的，玩游戏时升级随机加的属性必须要最好的。从前还不觉得自己的这些有什么奇怪，现在处女座被黑得多了，也发现，原来我刚好是个处女座。</p>
-<p>设计师有很多处女座吗？好像是的，即使不是，也有一颗“处女心”。</p>
-<p>作为一名设计师，渐渐地也发现自己，</p>
-<ol>
-<li>做设计前会算好参考线，各个组件的大小，是做ios应用时尺寸一定要按照苹果给的规范来，不能差分毫。</li>
-<li>对参考线一定要对准，差一像素都不行。</li>
-<li>有个想法要做作品前，一定会开Xmind来做脑图整理想法。</li>
-<li>用到的颜色一定要统一。分组要按组件部位命名分好。</li>
-<li>做icon时会用理科思维计算好几何图形的尺寸。</li>
-</ol>
-<p>拥有一颗处女心的设计师，并不是坏事。最起码的，对待设计比一般人严谨，出错更少。</p>
-<p>下面说一下我平时钟爱的PS拓展插件（好用到简直不是人！）：</p>
-<ol>
-<li><a href="http://guideguide.me/" target="_blank" rel="external">参考线插件GuideGuide</a></li>
-<li><a href="http://prisma.codeadventure.com/" target="_blank" rel="external">统一项目颜色管理Prisma</a></li>
-<li><a href="http://madebyvadim.com/layrs/" target="_blank" rel="external">一键管理所有图层Layrs</a></li>
-</ol>
-<p>安装插件前，对应Photoshop版本安装Extension Manager哦。如：CC版本要先安装Adobe Extension Manager CC。CS6版本就安装CS6版本的。</p>
-<p>最后，那么问题来了:)</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2014/10/08/设计师，处女心/" data-id="cj37h8snw000f2rfy91ky6wgs" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
