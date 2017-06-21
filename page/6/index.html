@@ -138,6 +138,164 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-starling学习笔记（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/10/starling学习笔记（一）/" class="article-date">
+  <time datetime="2013-03-10T07:44:06.000Z" itemprop="datePublished">Mar 10 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/10/starling学习笔记（一）/">Starling学习笔记（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>开学零零碎碎的时间，两个星期了，主要在学习<a href="http://gamua.com/starling/" title="Starling官网" target="_blank" rel="external">Starling</a>框架，给我的感觉很不错，易用，效率高。</p>
+<p><a href="http://gamua.com/starling/" target="_blank" rel="external"><img src="http://ftp142049.host115.web522.com/wp-content/uploads/2013/03/starling.jpeg" alt="" title="starling"></a></p>
+<p>刚开始还无从下手，都是在<a href="http://www.starlinglib.com/wiki/%E9%A6%96%E9%A1%B5" title="Starling中文站" target="_blank" rel="external">Starling中文站</a>照着学习和查阅<a href="http://www.starlinglib.com/wiki/APIReference" title="starlingAPI" target="_blank" rel="external">API文档</a>（中文）。还有就是<a href="http://pan.baidu.com/share/link?shareid=414334&amp;uk=3925949692" target="_blank" rel="external">中文说明书</a>，学着学着就大概知道怎么用了。</p>
+<p>Starling框架让使用Stage3D技术(在flash player 11中引入)创建二维程序和游戏成为可能。 它实现了和Flash 一样的显示列表系统，同时使用先进的GPUs加速渲染。以下讲讲我的体会：</p>
+<p>开发工具：Flash builder4.6(FB4.7用不习惯）, Flash Develop。（给我的感觉是fd写代码更快更方便一点）</p>
+<p>Starling框架：到官网下载starling包，里面有starling库源码和swc库文件以及一些demo项目文件。</p>
+<h4 id="Starling第一步"><a href="#Starling第一步" class="headerlink" title="Starling第一步"></a>Starling第一步</h4><p><strong>将您的项目链接到Starling swc库：</strong></p>
+<p>FB：建立新项目，在项目里建一个libs文件夹，把swc文件拉到里面，然后项目-属性-构建路径里添加libs（swc文件夹/文件）。</p>
+<p>FD：建立新项目，把swc文件拉到libs文件夹里，然后右键选择-添加到库。</p>
+<p><strong>建立启动类：</strong></p>
+<p>src源路径里添加新类（class）文件——作为starling启动类，继承自flash的Sprite（而下面Game类以及之后用到starling的都继承自starling的sprite）。代码如下：</p>
+<p><pre class="brush:as3">package<br>{<br>    import flash.display.Sprite;<br>    import starling.core.Starling;</pre></p>
+<pre><code>[SWF(frameRate = 60, width = 600, height = 1024, backgroundColor = 0xffffff)]
+public class Startup extends Sprite
+{    
+
+    public function Startup()
+    {
+        var _starling:Starling = new Starling(Game, stage);
+        _starling.start();
+    }
+
+}
+</code></pre><p>}<br>上面用核心starling类创建了starling对象_starling，然后用start方法启动它，这样，他就会按照设置好的信息[SWF…]渲染Game类了，Display显示列表和as原本的名字基本相似，所以容易混淆（常常自动填写代码错误…），但starling使用了stage3D，运行速度快。starling类还有其他用处，例如我常常就会习惯的加上_starling.showStats = true;来显示一些FPS和内存占用信息。</p>
+<p>查API文档可以知道，starling类还可以：</p>
+<blockquote>
+<p><strong>访问Starling对象</strong></p>
+<p>在你的程序里，你可以在任意时间通过静态方法<code>Starling.current</code>访问当前的Starling对象。它会返回 当前活跃的Starling实例（实际上大多数程序只会有一个Starling对象）。</p>
+<p><strong>观察口，视口</strong></p>
+<p>即是Starling内容渲染显示的范围，默认情况下是舞台大小。但是，你可以使用“viewport”属性去改变它。当你只想在屏幕的一部分中 渲染，或者播放器大小改变时，这个属性非常有用。随后你可以监听由Starling舞台发出的RESIZE事件。</p>
+<p><strong>原生Flash叠加层</strong></p>
+<p>有时你会想在Starling上面显示一些原生Flash内容，这就是<code>nativeOverlay</code>属性的作用。它返回的是在Starling之上 的原生FLash Sprite。你可以在叠加层内添加原生Flash对象。</p>
+<p>但是需要注意，在3D加速内容之上的原生Flash内容在某些（移动）平台上会有性能上的问题。因为这个原因，请注意删除这一层中所有 不需要和不再使用的对象。当这一层被置空后Starling会从显示列表中删除原生Flash叠加层。</p>
+<p><strong>多点触摸</strong></p>
+<p>对于提供支持多点触摸功能的设备，Starling也支持这项功能。在开发过程中，我们大多数基本上都是使用鼠标的键盘，Starling可以 在“Shift”和“Ctrl”的帮助下（Mac苹果机是“Cmd”）模拟实现多点触摸事件。启动<code>simulateMultitouch</code>属性就可以激活 这个功能。</p>
+<p><strong>处理丢失的渲染内容</strong></p>
+<p>在某些系统和某些条件下（例如，从系统睡眠中返回），Starling的stage3D渲染内容会丢失。如果类属性“handleLostContext” 设置为 “true” Starling会自动修复丢失内容。但是需要注意，这是以提高内存消耗为代价的。Starling会在内存中创建纹理缓存，这样 在内容丢失时才可以修复它。</p>
+<p>如果你想和丢失的内容交互，Starling在这个内容修复时发送”Event.CONTEXT3D_CREATE”事件，你可以在相对应的事件<strong><strong>*</strong></strong>中重新 创建这些不可用资源.</p>
+<p><strong>共享三维加速内容</strong></p>
+<p>正常情况下，Starling是独立处理stage3d加速内容。如果你想让Starling和其它的stage3d引擎同时使用，可能会达不到你需要的效果。 在这种情况下，你可以使用<code>shareContext</code>属性:</p>
+<ol>
+<li>手动创建和定义一个让两个框架公用的context3D对象 (通过<code>stage3D.requestContext3D</code> 和 <code>context.configureBackBuffer</code>)创建.</li>
+<li>使用已经定义了的context3d对象的stage3d实例来初始化Starling。 这样做会自动启用 <code>shareContext</code>.</li>
+<li>调用Starling实例的 <code>start()</code>(与往常一样). 这样做是让 Starling 对事件监听进行排队处理 (keyboard/mouse/touch).</li>
+<li>创建一个游戏逻辑（例如，使用原生的<code>ENTER_FRAME</code>事件）然后让它调用Starling的 <code>nextFrame</code>同时调用其它Stage3D引擎的同功能方法 . 相关类型的方法还有<code>context.clear()</code> 和 <code>context.present()</code>.<br>&nbsp;</li>
+</ol>
+</blockquote>
+<p>接着新建一个Game类，</p>
+<p><pre class="brush:as3">import starling.display.Sprite;<br>import starling.text.TextField;</pre></p>
+<p>public class Game extends Sprite<br>{<br>    public function Game()<br>    {<br>        var textField:TextField = new TextField(400, 300, “Hello Starling!”);<br>        addChild(textField);<br>    }<br>}<br>一贯的hello world啦~然后把启动类Startup设为文档类，就可以测试了，一般都能测试成功了，当然，要注意调用的是flash的还是starling的方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/03/10/starling学习笔记（一）/" data-id="cj37h8stf004k2rfyvvt8vrp7" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AS3/">AS3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Starling/">Starling</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-初次接触haxe语言" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/02/21/初次接触haxe语言/" class="article-date">
+  <time datetime="2013-02-21T11:41:51.000Z" itemprop="datePublished">Feb 21 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Haxe/">Haxe</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/02/21/初次接触haxe语言/">初次接触Haxe语言</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>被“誉为”上帝的语言的Haxe,他是多么的强大。Haxe 项目是Flash开源界的最大贡献。 它的前身是大名鼎鼎的<a href="http://www.mtasc.org/" target="_blank" rel="external">mtasc</a>项目，mtasc 是一款开源的 actionscript 语言（Flash的脚本语言）编译器。2005 年，haxe开始开发。</p>
+<blockquote>
+<p>“One language，everywhere.”–HAXE.<br>什么是Haxe？它有什么特点？Haxe是一门“通用语言”(Universal Language)，使用haxe写的程序，可以编译成不同的其它语言源码，再进行编译。例如用haxe编码，然后可以编译成-JavaScript, Flash, NekoVM, PHP, C++, C# 和Java的源码，再进行编译。这是前所未有的“跨平台”。加上NME模块的支持的话，还支持iOS，Android，WindowsMobile，WebOS。这意味着你的应用可以轻易支持几乎所有流行的智能手机平台。</p>
+</blockquote>
+<p>参考haxe的相关资料：</p>
+<p><a href="http://haxe.org/index.n?lang=cn" target="_blank" rel="external">haxe官网（中文）</a>，（这个不知为何今天突然要搭梯子才能上了，之前还不用的，可能太强大以至于被Q了…）</p>
+<p><a href="http://www.csdn.net/article/2012-06-11/2806538" target="_blank" rel="external">Haxe：号称比Java还要跨平台的语言</a></p>
+<p><a href="http://www.cnblogs.com/xiaotie/archive/2012/04/19/2456447.html" target="_blank" rel="external">上帝的玩偶：haXe语言</a></p>
+<p><a href="http://blog.csdn.net/coollen_mmx/article/details/7908782" target="_blank" rel="external">Haxe：一次编码全平台编译的神话</a></p>
+<p>既然haxe这么厉害了，为什么还是没被广泛应用？</p>
+<p>见这篇：<a href="http://blog.csdn.net/wyyayy/article/details/7664441" target="_blank" rel="external">haxe，想说爱你不容易</a></p>
+<p>原本haxe就是起源于一个AS开源编译器<a href="http://www.mtasc.org/" target="_blank" rel="external">mtasc</a>。而flash开发者本身较少，所以很少人知道。（我也是用<a href="http://www.flashdevelop.org/" target="_blank" rel="external">flashdevelop</a>才知道原来有haxe，于某天好奇查阅其资料）</p>
+<p><a href="http://www.nme.io/" title="NME" target="_blank" rel="external">NME</a>介绍：</p>
+<p>NME是一个跨平台的框架，用于支持Windows, Mac, Linux, iOS, Android, BlackBerry, Flash 甚至是 HTML5.</p>
+<p>为什么说haxe很适合flash开发者学习？因为NME它给Haxe语言中添加了名叫nme的包（Package），这个包内部包含了非常多的Flash中的同名库。这里有<a href="http://www.haxenme.org/api/" target="_blank" rel="external">API手册</a>，这里还有官网给<a href="http://www.nme.io/developer/guides/actionscript-developers/" target="_blank" rel="external">AS开发者的指导</a>。</p>
+<p>寒假在家用就笔记本，装了ubuntu，ubuntu上只能在<a href="http://fdt.powerflasher.com/" target="_blank" rel="external">fdt5</a>上尝试了下，用haxe写，确实和as3很相似，所以比较适应。</p>
+<p>不过fdt5相对与flashdevelop确实少了很多功能且是英文界面，而且官方也推荐flashdevelop。</p>
+<p>在linux上搭建环境确实十分麻烦，我也是糊里糊涂的搭建完，迟些在windows上再试试。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2013/02/21/初次接触haxe语言/" data-id="cj37h8ssq003d2rfycc7qbjaa" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Haxe/">Haxe</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-air做了个类似猜硬币的东西" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2012/12/23/air做了个类似猜硬币的东西/" class="article-date">
@@ -592,102 +750,6 @@
       
 
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-知其然而不知其所以然" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/03/06/知其然而不知其所以然/" class="article-date">
-  <time datetime="2012-03-06T14:29:22.000Z" itemprop="datePublished">Mar 6 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/03/06/知其然而不知其所以然/">知其然而不知其所以然</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我感觉我现在对AS3的学习就是这样，这几天在做个仿切水果的游戏常常遇到问题经过不断尝试解决了后，却很难说出其中的原理。</p>
-<p>像昨天忙了一个晚上对一个变量的引用，才搞懂问题所在；以及今天下午尝试了很久才发现添加enterFrame事件侦听器的地方不该在那里；以及对数组的引用。虽然在尝试解决的过程中有了新的认识，对一些代码有更深的了解，但我那感觉还是模棱两可的，因为自己都不敢确定是不是所想的那样。再次遇到同样的问题，却找不到根本的原因，得到最直接的解决办法，而又需要不断地尝试，才会发现另一个解决办法，而还是不知道其中的真正原因。</p>
-<p>显然这对于一个代码学习者来说是不好的，虽然这样学会的会印象深刻，但却走了很多弯路，也浪费了很多时间。本身大学空余的时间就不多，我不该在这方面去浪费时间。而且我也感觉我是太过急了，不好好学基础，把基础打劳，就去实践。没完全搞明白化学反应原理，就去搞化学反应，这是同样的道理。</p>
-<p>所以，从明天起，我要开始回顾基础，而且要学得深入，明白面向对象编程的方法，搞清楚代码运作的原理。</p>
-<p>&nbsp;</p>
-<p>另外我发现了一个好东西，flash cs5 ActionScript3.0 的中文参考帮助的chm文档，以后看书遇到不认识的代码就可以往里面一搜索，就会找到相应的介绍，很方便很实用。</p>
-<p><a href="ftp://**:***@218.75.14.197/code9/china-code.net.zhy.201111121312970605211.Rar" title="flash CS5 的 ActionScript 3.0 参考 chm" target="_blank" rel="external">ftp://<strong>:*</strong>@218.75.14.197/code9/china-code.net.zhy.201111121312970605211.Rar</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/03/06/知其然而不知其所以然/" data-id="cj37h8sr5000q2rfy76bncmgb" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/as3参考文档/">as3参考文档</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础/">基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-发现了一个有趣的游戏-切绳子" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/02/25/发现了一个有趣的游戏-切绳子/" class="article-date">
-  <time datetime="2012-02-25T04:56:14.000Z" itemprop="datePublished">Feb 25 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/日志/">日志</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/02/25/发现了一个有趣的游戏-切绳子/">发现了一个有趣的游戏——切绳子</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天看同学用手机玩一个叫《切绳子》的游戏，发现很有趣。而且有个用html5做的网页版，猛击<a href="http://www.cuttherope.ie" title="Cup the Rope" target="_blank" rel="external">此处</a>进入</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/02/25/发现了一个有趣的游戏-切绳子/" data-id="cj37h8ssj00322rfy5a2opafp" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
-
     </footer>
   </div>
   
