@@ -138,6 +138,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-各种忙" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/03/29/各种忙/" class="article-date">
+  <time datetime="2012-03-29T11:08:03.000Z" itemprop="datePublished">Mar 29 2012</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日志/">日志</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/03/29/各种忙/">各种忙</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前段时间社团部门各种忙，现在终于都忙完了，20天没碰as3了。也没写博客了， 几乎天天晚上都忙到1、2点。做不完的海报，传单，各部门之间的联系又烂，什么都没整理好就让我做海报……</p>
+<p>哎，现在终于可以好好学代码了，再学flex开发，去图书馆借了几本书，感觉flex开发挺有趣，貌似音乐播放器、浏览器等软件都能开发，真想学会。</p>
+<p>清明之后还要参加水火箭比赛，和一个模型去参赛，估计又得忙一阵了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2012/03/29/各种忙/" data-id="cj37h8ssh00302rfy4yz64yl0" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-知其然而不知其所以然" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2012/03/06/知其然而不知其所以然/" class="article-date">
@@ -681,65 +726,6 @@
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AS3/">AS3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ActionScript3/">ActionScript3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/一串小球/">一串小球</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无聊小球/">无聊小球</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-无聊加条线惹的祸无聊小球运动" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/01/14/无聊加条线惹的祸无聊小球运动/" class="article-date">
-  <time datetime="2012-01-14T07:56:11.000Z" itemprop="datePublished">Jan 14 2012</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/AS3-0/">AS3.0</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/01/14/无聊加条线惹的祸无聊小球运动/">无聊加条线惹的祸……@无聊小球</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这几天经常没事就做做小球运动，今天学着书做了个小球缓动过程，也就是:</p>
-<blockquote>
-<p>(1)设定一个比例系数（&lt;1）；</p>
-<p>(2)设定目标点；</p>
-<p>(3)计算物体到目标点之间的距离；</p>
-<p>(4)将距离与比例系数相乘，得到速度；</p>
-<p>(5)加入速度到当前物体的位置；</p>
-<p>(6)重复3-5步；<br>那么这小段代码便是：</p>
-<p><pre class="brush:as3">private var easing:Number=0.2;<br>private var targetx:Number=stage.stageWidth/2;<br>private var targety:Number=stage.stageHeight/2;</p>
-</blockquote>
-<p>function onEnterFrame(event:Event):void{<br>    var dx:Number=targetx-ball.x;<br>    var dy:Number=targety-ball.x;<br>        vx=(targetx-ball.x)<em>easing;<br>    vy=(targety-ball.y)</em>easing;<br>    ball.x+=vx;<br>    ball.y+=vy;</pre><br>这段代码虽然简单（看上去）那是因为我还没加上其他东西，但是这样是运行不了的。 然后边就是我前面那篇的纠结之处了，我开始做了一个Ball类文件Ball.as,那是一个添加一个球（圆形）的方法，为以后做无聊球运动是方便引用的。 然后为这个小球缓动运动fla（空白的）设置了一个文档类Scale1.as。但是Ball怎么设置，我像昨天那样设置类路径，但是根本搞不清其中的关系，该import什么，文件该怎么放，包怎么定义，快崩溃了，不过还是静下心来仔细思考，并且看书-“面向对象编程”那章。还是用了很多时间翻书、尝试才把Ball类文件用到scale1.as上，原来文档类所在文件夹就是包名，而且类文件要和as放在同一个根目录上；假如fla和as文件位于同一个目录内，那么就是在同一个包内，就不用命名。然后把ball放在了fla所在（根）目录上的一个oneball文件夹上，然后在fla文件actionscript3.0定义设置源路径上要加入oneball这个目录位置（flash cs3上到文件-发布设置-actionscript版本后面的“设置”，flashcs5到fla文件点选右边属性-脚本actionscript3.0后面的一个扳手图标），设置完后然后在Scale1.as上的顶端、定义包下面加入import oneball Ball;就可以用Ball方法添加小球了。<br>
-        
-          <p class="article-more-link">
-            <a href="/2012/01/14/无聊加条线惹的祸无聊小球运动/#more">......</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://blog.shengbanx.com/2012/01/14/无聊加条线惹的祸无聊小球运动/" data-id="cj37h8sru001b2rfyn53as6jt" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AS3/">AS3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ActionScript3/">ActionScript3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无聊加条线/">无聊加条线</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无聊小球/">无聊小球</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类文档/">类文档</a></li></ul>
 
     </footer>
   </div>
