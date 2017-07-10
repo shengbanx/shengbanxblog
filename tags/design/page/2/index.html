@@ -138,6 +138,80 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-iInteraction density" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/13/iInteraction density/" class="article-date">
+  <time datetime="2016-04-13T13:43:42.000Z" itemprop="datePublished">Apr 13 2016</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Translation/">Translation</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/13/iInteraction density/">交互密度与最小交互区域</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>体验优秀的App之所以优秀，往往是因为他们能让用户快速访问到各项功能。这里就涉及到多点触摸的交互密度，一个较大的触摸区域，在常规操作下十分好用。或许对于一些用户来说，触控区域的大区块，视觉上可能有点难看，但一旦你习惯了这种操作，就会发现他们的体验真的非常棒。</p>
+</blockquote>
+<p>对于要求精确度的任务，比起键盘和鼠标，多点触控方式其实并不适合。因为多点触控很容易受到交互密度的影响。</p>
+<p>什么是交互密度？想像一下一台设备的显示，分割成一个个的小方块。每个方块代表的是理想的最小交互区域。简单点说，就是相当于你将很多个按钮两两贴在一起，每个按钮就是你能点击到的最小交互区域。同样的大小里最小交互区域越多，交互密度就越高。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/interactiondensity-grid.png" alt=""></p>
+<p>当然，一台设备上不可能显示的全是按钮，但最小交互区域仍然是存在的。例如在矢量绘图App里，这决定了你是要放大到多大，才能选择出两个单独的点来。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/interactiondensity-vector1.png" alt=""></p>
+<p>同一个矢量绘图App里，在较低的交互密度下，你便需要放大到更大的大小才能轻松选取出两个点。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/interactiondensity-vector2.png" alt=""></p>
+<h3 id="44pt-vs-20pt"><a href="#44pt-vs-20pt" class="headerlink" title="44pt vs 20pt"></a>44pt vs 20pt</h3><p>iOS上，<a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/LayoutandAppearance.html" target="_blank" rel="external">苹果建议44x44pt</a>作为最小的点击目标区域。这适用于整个系统，苹果的app和第三方app都一样。导航栏高度是44pt，列表行高是44pt，以及许多按钮都是44pt高。虽然也有一些小于这尺寸的例子，但不多见。</p>
+<p>对于OS X 系统，没有直接的苹果视觉指导，但有大量可使用的示例资源——如每个OS X窗口左上角的“交通灯”按钮是12x12pt，文件窗口上的标准打开和保存按钮是20pt高，OS X 菜单栏高为22pt，下拉菜单项的高度为19pt。从这看来，使用20x20pt作为OS X上舒适的最小交互区域似乎是明智的，也是合理的。</p>
+<p>上面的对比意味着OS X有两倍于iOS的交互密度，加之在X轴和Y轴上，导致了显示同样的内容，iOS上需要4倍的区域大小。这很值得注意。</p>
+<p>这尺寸的区别可以在很多地方看到。iOS Mail的栏高是44pt，OS X上则是22pt。iOS上Tweetbot的分享icon是27pt高，OS X上只有13pt高。你能发现的每一处这样有意思的比较，iOS都有着大约两倍的高度和宽度。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/interactiondensity-ios-osx.png" alt=""></p>
+<h3 id="显示密度"><a href="#显示密度" class="headerlink" title="显示密度"></a>显示密度</h3><p>你可能注意到我上面的比较例子一直使用的都是iOS 点（points）和 OS X 点（points）单位，并没有提及屏幕显示像素密度（Display Pixel Densities）的不同。这是故意而为的，因为像素密度在iOS设备之间，以及Mac设备之间都会有些区别，但是UI本身使用的单位pt点在屏幕上的尺寸是不变的。</p>
+<h3 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h3><p>不同的输入方法允许不同的交互方式，来堆栈许多功能在一个单一的交互区域上。例如iOS上的一个区域可以是点击，连续点击，长按甚至是3D Touch。</p>
+<p>这还不够复杂，在OS X上也有同样的地方，单击、双击、长按、右击鼠标。实际上，鼠标输入也会经常配合键盘的修饰符（⇧, ⌥, ⌃, 和 ⌘）使用。许多设计软件可以通过⌥（Windows里的alt）+拖动来复制。这不是什么稀奇的功能，他让设计人员每天几乎使用上百次，极大提高工作效率。这些快捷操作也可以是另外的方式，但相同的是都不会占用额外的屏幕空间来使用。</p>
+<p>在交互栈中，多点触控不及鼠标和键盘。是的，我也想过键盘可以配合多点触控设备使用，但这并不成熟，对比与成熟、普及的iOS和OS X操作方式。说实话，这种配合方法是一种不入流的输入方式。</p>
+<h3 id="设备的交互区数"><a href="#设备的交互区数" class="headerlink" title="设备的交互区数"></a>设备的交互区数</h3><p>忽略堆栈，一台iPad Pro可以容纳大约723个独立的最小交互区域。一台12寸的Macbook呢？2074。最小的Mac设备则拥有比最大的iOS设备多两倍以上的UI显示量。</p>
+<p><img src="http://shengbanx.qiniudn.com/blog/files/interactiondensity-graph.png" alt=""></p>
+<p>这些数据有用吗？对于大部分工作和App来说，并没有多大用处。但对于专业的视频、音乐和设计工作呢？是的，或许其产生的效益比我预想的会更多。</p>
+<p>这之中应该存在一个理想的交互密度方案，但显然我还没有研究出来 :) 。多点触控总是受到很多方面影响，包括人类手指的尺寸。</p>
+<p><strong>如果多点触控是未来的的话，或许，我们会需要一个更大的屏幕吧。</strong></p>
+<blockquote>
+<p>本文由shengbanx翻译整理，原文版权归属原作者所有<br>转载须注明来源及以下信息：</p>
+<p>原文发表于 2016年3月12日<br>《 <a href="https://bjango.com/articles/interactiondensity/" target="_blank" rel="external">Interaction density</a> 》<br>by Bjango  </p>
+<p>shengbanx 译</p>
+</blockquote>
+<p>​</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.shengbanx.com/2016/04/13/iInteraction density/" data-id="cj37h8stj004w2rfyin0x1jay" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design/">design</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-设计师技能树v0.1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/10/10/设计师技能树v0.1/" class="article-date">
